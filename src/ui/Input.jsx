@@ -7,3 +7,4 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
 `;
+export default Input;
