@@ -12,6 +12,7 @@ import styled, { createGlobalStyle } from "styled-components"
 import GlobalStyle from "./styles/GlobalStyle";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
+import Heading from "./ui/Heading";
 
  
 //  const router = createBrowserRouter([{
@@ -78,7 +79,7 @@ function App() {
     <>
       <GlobalStyle />
       {/* <AppContainer> */}
-        <H1>The Wild Oasis</H1>
+        <Heading>The Wild Oasis</Heading>
         <Button onClick={() => alert("Click in")}>Click in</Button>
         <Button onClick={() => alert("Click out")}>Click out</Button>
         <Input type="number" placeholder="Number of guests" />
