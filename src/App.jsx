@@ -13,6 +13,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 import Heading from "./ui/Heading";
+import Row from "./ui/Row";
 
  
 //  const router = createBrowserRouter([{
@@ -64,26 +65,37 @@ import Heading from "./ui/Heading";
 
 
 
-// const AppContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   min-height: 100vh;
-//   background-color: #f8f9fa;
-//   gap: 20px;
-// `;
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  gap: 20px;
+`;
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      {/* <AppContainer> */}
-        <Heading>The Wild Oasis</Heading>
+      <AppContainer>
+      <Row type="horizontal">
+        <Heading as="h1">The Wild Oasis</Heading>
+        <div>
+        <Heading as="h2">Click in and out</Heading>
         <Button onClick={() => alert("Click in")}>Click in</Button>
         <Button onClick={() => alert("Click out")}>Click out</Button>
+        </div>
+        </Row>
+        <Row type="vertical">
+        <Heading as="h3">Form</Heading>
+        <form>
         <Input type="number" placeholder="Number of guests" />
-      {/* </AppContainer> */}
+        <Input type="number" placeholder="Number of guests" />
+        </form>
+        </Row>
+      </AppContainer>
     </>
   );
 }
