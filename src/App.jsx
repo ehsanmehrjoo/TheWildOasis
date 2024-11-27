@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import {  Navigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Bookings from './pages/Bookings';
 import Cabins from './pages/Cabins';
@@ -10,25 +10,54 @@ import Settings from './pages/Settings';
 import PageNotFound from './pages/PageNotFound';
 import GlobalStyle from './styles/GlobalStyle';
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate replace to="dashboard" />,
+    index : true,
+    
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path : "bookings",
+    element: <Bookings />,
+  },
+  {
+    path : "cabins",
+    element: <Cabins />
+  },
+  {
+    path : "users",
+    element: <Users />,
+  },
+  {
+    path : "settings",
+    element: <Settings />,
+  },
+  {
+    path : "account",
+    element: <Account />,
+  },
+  {
+    path : "login",
+    element: <Login />,
+  },
+  {
+    path : "*",
+    element: <PageNotFound />,
+  }
+
+])
 function App() {
-  return (
-    <>
-    <GlobalStyle />
-    <BrowserRouter>
-      <Routes>
-        <Route  index element={<Navigate  replace to="dashboard"/>} /> {/* Root route */}
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="bookings" element={<Bookings />} />
-        <Route path="cabins" element={<Cabins />} />
-        <Route path="users" element={<Users />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="account" element={<Account />} />
-        <Route path="login" element={<Login />} />
-        <Route path="*" element={<PageNotFound />} /> {/* Catch-all route */}
-      </Routes>
-    </BrowserRouter>
-    </>
-  );
+return <>
+ <GlobalStyle />
+<RouterProvider router={router}/>
+</>
+  
+   
 }
 
 export default App;
