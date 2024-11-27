@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Navigate replace to="dashboard" />,
     index : true,
-    
+    errorElement:<PageNotFound />,
   },
   {
     path: "dashboard",
@@ -45,10 +45,7 @@ const router = createBrowserRouter([
     path : "login",
     element: <Login />,
   },
-  {
-    path : "*",
-    element: <PageNotFound />,
-  }
+  
 
 ])
 function App() {
