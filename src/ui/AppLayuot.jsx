@@ -1,8 +1,12 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 function AppLayuot() {
   return (
-    <div>AppLayuot</div>
+    <div>
+    <p>AppLayuot</p>
+    <Outlet/>
+    </div>
   )
 }
 

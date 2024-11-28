@@ -9,43 +9,52 @@ import Account from './pages/Account';
 import Settings from './pages/Settings';
 import PageNotFound from './pages/PageNotFound';
 import GlobalStyle from './styles/GlobalStyle';
+import AppLayuot from './ui/AppLayuot';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Navigate replace to="dashboard" />,
-    index : true,
+    element: <AppLayuot />,
     errorElement:<PageNotFound />,
-  },
-  {
-    path: "dashboard",
-    element: <Dashboard />,
-  },
-  {
-    path : "bookings",
-    element: <Bookings />,
-  },
-  {
-    path : "cabins",
-    element: <Cabins />
-  },
-  {
-    path : "users",
-    element: <Users />,
-  },
-  {
-    path : "settings",
-    element: <Settings />,
-  },
-  {
-    path : "account",
-    element: <Account />,
+    children: [
+      {
+        path: "/",
+        element: <Navigate replace to="dashboard" />,
+        index : true,
+        
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path : "bookings",
+        element: <Bookings />,
+      },
+      {
+        path : "cabins",
+        element: <Cabins />
+      },
+      {
+        path : "users",
+        element: <Users />,
+      },
+      {
+        path : "settings",
+        element: <Settings />,
+      },
+      {
+        path : "account",
+        element: <Account />,
+      },
+    ]
   },
   {
     path : "login",
     element: <Login />,
-  },
-  
+  }, 
+  {
+     errorElement:<PageNotFound />,
+  } 
 
 ])
 function App() {
