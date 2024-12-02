@@ -20,6 +20,9 @@ const StyledLink = styled(NavLink)`
     font-weight: 500;
     padding: 1.2rem 2.4rem;
     transition: all 0.3s;
+    @media (max-width: 768px) { 
+     padding: 0.6rem 1.2rem ,
+  }
   }
 
   /* This works because react-router places the active class on the active NavLink */
@@ -88,3 +91,7 @@ function MainNav() {
 }
 
 export default MainNav
+
+
+
+ 

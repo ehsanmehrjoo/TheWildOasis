@@ -7,12 +7,15 @@ const StyledLogo = styled.div`
 const Img = styled.img`
   height: 9.6rem;
   width: auto;
+  @media (max-width: 768px) { 
+  display: none;
+  }
 `;
 
 function Logo() {
   return (
     <StyledLogo>
-      <Img src="/src/data/img/logo-light.png" alt="Logo" />
+      <Img className="img" src="/src/data/img/logo-light.png" alt="Logo" />
     </StyledLogo>
   );
 }
