@@ -30,8 +30,16 @@ function Cabins() {
         <p>Error: {error}</p>
       ) : (
         <ul>
-          {cabins.map((cabin, index) => (
-            <li key={index}>{cabin.name}</li> // فرض می‌کنیم که هر کابین دارای فیلد `name` است
+          {cabins.map((cabin ) => (
+            <li key={cabin.id}>{cabin.name}
+            <img src={cabin.image} />
+            <p>Max Capacity: {cabin.maxCapacity}</p>
+            <p>Regular Price: {cabin.regularPrice}</p>
+
+            <p>Discount: {cabin.discount}</p>
+
+            </li>  
+          
           ))}
         </ul>
       )}
