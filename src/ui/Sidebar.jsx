@@ -7,7 +7,7 @@ import { HiMenuAlt3 } from "react-icons/hi";
 const StyledSidebar = styled.aside`
 background-color: var(--color-grey-0);
 padding: 3.2rem 2.4rem;
-border-right: 1px solid var(--color-grey-100);
+/* border-right: 1px solid var(--color-grey-100); */
 grid-row: 1 / -1;
 display: flex;
 flex-direction: column;
@@ -49,7 +49,7 @@ const BlueLine = styled.div`
    position: fixed;
   top: 0;
   left: 26rem;
-  width: 0.5px; /* ضخامت خط */
+  width: 1.5px; /* ضخامت خط */
   height: 100vh; /* ارتفاع کل صفحه */
   background-color: var(--color-grey-100); /* رنگ خط */
   @media (max-width: 768px) {
