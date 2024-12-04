@@ -13,6 +13,7 @@ const StyledAppLayout = styled.div`
     "sidebar main";
   height: 100vh;
 
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
