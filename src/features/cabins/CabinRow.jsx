@@ -38,3 +38,17 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
+
+
+function CabinRow() {
+  return (
+   <TableRow>
+   <Img src="https://example.com/image.jpg" alt="Cabin Image" />
+   <Cabin></Cabin>
+   <Price>$150</Price>
+   <Discount>20%</Discount>
+   </TableRow>
+  )
+}
+
+export default CabinRow
