@@ -1,4 +1,5 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {  Navigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Bookings from './pages/Bookings';
@@ -10,6 +11,15 @@ import Settings from './pages/Settings';
 import PageNotFound from './pages/PageNotFound';
 import GlobalStyle from './styles/GlobalStyle';
 import AppLayuot from './ui/AppLayuot';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient =  new QueryClient({
+  defaultOptions: {
+    queries:{
+      staleTime: 60 * 1000
+    }
+  }
+})
 
 const router = createBrowserRouter([
   {
@@ -58,10 +68,12 @@ const router = createBrowserRouter([
 
 ])
 function App() {
-return <>
+return  <QueryClientProvider client={queryClient}>
+<ReactQueryDevtools initialIsOpen={false} /> 
  <GlobalStyle />
 <RouterProvider router={router}/>
-</>
+</QueryClientProvider>
+ 
   
    
 }
