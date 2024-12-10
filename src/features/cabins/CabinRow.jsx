@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
+import { HiEllipsisVertical } from "react-icons/hi2";
+
 
 const TableRow = styled.div`
   display: grid;
@@ -39,7 +41,16 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
-
+const Button = styled.button`
+    background: none;
+    border: none;
+    padding: 0.4rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 3rem; /* 48px */
+line-height: 1;
+    transform: translateX(0.8rem);
+    transition: 0.2s;
+`
 
 function CabinRow({cabin}) {
 
@@ -51,6 +62,9 @@ function CabinRow({cabin}) {
    <div>Fits up to {maxCapacity} guests</div>
    <Price>{formatCurrency(regularPrice)}</Price>
    <Discount>{formatCurrency(discount)}</Discount>
+   <Button>
+   <HiEllipsisVertical className="text-7xl"/>
+   </Button>
    </TableRow>
   )
 }
