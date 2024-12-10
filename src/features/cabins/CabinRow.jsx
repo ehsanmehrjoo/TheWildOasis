@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 import { HiEllipsisVertical } from "react-icons/hi2";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteCabins } from "../../services/apiCabins";
 
 
 const TableRow = styled.div`
@@ -41,30 +43,45 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
-const Button = styled.button`
-    background: none;
-    border: none;
-    padding: 0.4rem;
-    border-radius: var(--border-radius-sm);
-    font-size: 3rem; /* 48px */
-line-height: 1;
-    transform: translateX(0.8rem);
-    transition: 0.2s;
-`
+// const Button = styled.button`
+//     background: none;
+//     border: none;
+//     padding: 0.4rem;
+//     border-radius: var(--border-radius-sm);
+//     font-size: 3rem; /* 48px */
+// line-height: 1;
+//     transform: translateX(0.8rem);
+//     transition: 0.2s;
+// `
 
 function CabinRow({cabin}) {
 
-  const {name , image , regularPrice ,  discount , maxCapacity} = cabin;
+  const {id : cabinId , name , image , regularPrice ,  discount , maxCapacity} = cabin;
+
+  const queryClient = useQueryClient()
+  const { isLoading  , mutate} =  useMutation({ 
+    mutationFn : (id)  => deleteCabins(id),
+    onSuccess : () =>  {
+      alert(`Cabins ${name} successfully deleted`)
+      queryClient.invalidateQueries({
+        queryKey: ["cabins"]
+      })  
+    },
+    onError : (err) => alert(err.message),
+  
+  })
   return (
+    
    <TableRow role="row">
    <Img src={image} alt={name} />
    <Cabin>{name}</Cabin>
    <div>Fits up to {maxCapacity} guests</div>
    <Price>{formatCurrency(regularPrice)}</Price>
    <Discount>{formatCurrency(discount)}</Discount>
-   <Button>
-   <HiEllipsisVertical className="text-7xl"/>
-   </Button>
+   <button onClick={ () => mutate(cabinId)} disabled={isLoading}>
+   Delete
+   {/* <HiEllipsisVertical className="text-7xl"/> */}
+   </button>
    </TableRow>
   )
 }

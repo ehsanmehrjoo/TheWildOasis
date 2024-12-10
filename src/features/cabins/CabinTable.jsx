@@ -47,15 +47,15 @@ const TableHeader = styled.header`
 function CabinTable() {
   // استفاده از هوک react-query برای دریافت اطلاعات کابین‌ها
   const { isLoading, data: cabins, error } = useQuery({
-    queryKey: ["cabin"],
+    queryKey: ["cabins"],
     queryFn: getCabins,
   });
 
   // نمایش اسپینر هنگام بارگذاری
   if (isLoading) return <Spinner />;
 
-  // مدیریت خطا (اختیاری)
-  if (error) return <p>Error loading cabins...</p>;
+  // // مدیریت خطا (اختیاری)
+  // if (error) return <p>Error loading cabins...</p>;
 
   // نمایش جدول کابین‌ها
   return (
