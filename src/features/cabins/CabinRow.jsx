@@ -4,6 +4,7 @@ import { HiEllipsisVertical } from "react-icons/hi2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabins } from "../../services/apiCabins";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 
 const TableRow = styled.div`
@@ -58,31 +59,26 @@ const Discount = styled.div`
 function CabinRow({cabin}) {
 
   const {id : cabinId , name , image , regularPrice ,  discount , maxCapacity} = cabin;
-  const [errorMsg, setErrorMsg] = useState("");
+ 
 
 
   const queryClient = useQueryClient()
-  const { isLoading  , isSuccess , isError, mutate} =  useMutation({ 
+  const { isLoading  , mutate} =  useMutation({ 
     mutationFn : (id)  => deleteCabins(id),
     onSuccess : () =>  {
-      alert(`Cabins ${name} successfully deleted`)
+      toast.success(`Cabins ${name} successfully deleted`)
       queryClient.invalidateQueries({
         queryKey: ["cabins"]
       })  
     },
     onError: (err) => {
-      setErrorMsg(err.message);
+      toast.error(err.message);
       
     },
     
   
   })
-  return ( <>
-    <div className="bg-red-600">
-     {isLoading && <p>Loading...</p>}
-      {isSuccess && <p className="color: red">Cabins "${name}" successfully deleted</p>}
-      {isError && <p style={{ color: "red" }}>{errorMsg}</p>}
-      </div>
+  return (
    <TableRow role="row">
    <Img src={image} alt={name} />
    <Cabin>{name}</Cabin>
@@ -94,7 +90,6 @@ function CabinRow({cabin}) {
    {/* <HiEllipsisVertical className="text-7xl"/> */}
    </button>
    </TableRow>
-   </>
   )
 }
 
