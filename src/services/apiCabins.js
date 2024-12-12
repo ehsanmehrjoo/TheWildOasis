@@ -32,3 +32,20 @@ export async function deleteCabins(id) {
    
 
 }
+
+export async function AddCabins(){
+    
+const { data, error } = await supabase
+.from('cabins')
+.insert([
+  {  name: "",
+    maxCapacity: "",
+    regularPrice: "",
+    discount: "",
+    description: "",
+    image: "", },
+])
+.select()
+return data;
+
+}

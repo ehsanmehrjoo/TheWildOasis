@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import CabinTable from "../features/cabins/CabinTable";
-// import { getCabins } from "../services/apiCabins";
+import { CabinContext } from "../features/cabins/ContextCabin";
+import CreateCabinForm from "../features/cabins/CreateCabinForm";
+import Button from "../ui/Button";
 
 function Cabins() {
- 
+ const {isFormOpen , toggleCreateForm} = useContext(CabinContext)
+ console.log(isFormOpen);
 
   return ( <>
     <Row type="horizontal">
@@ -15,6 +18,10 @@ function Cabins() {
     </Row>
     <Row>
     <CabinTable /> 
+    </Row>
+    <Row>
+      <Button variation="primary" onClick={() => toggleCreateForm()}>Add new cabin</Button>
+      {isFormOpen && <CreateCabinForm />}
     </Row>
     </>
   );
