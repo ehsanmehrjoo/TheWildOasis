@@ -38,11 +38,12 @@ export async function CreateCabins(newCabins) {
 const { data, error } = await supabase
 .from('cabins')
 .insert([newCabins])
+.select()
 
-if (error) {
-    console.error(error);
-    throw new Error('Cabin could not be deleted');
+    if (error) {
+      console.error("Supabase Error:", error);
+      throw new Error("Cabin could not be created");
+    }
+    return data;
+  }
   
-}
-return data;
-}

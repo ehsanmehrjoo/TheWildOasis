@@ -9,8 +9,9 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { HiXMark } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { AddCabins } from "../../services/apiCabins";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CreateCabins } from "../../services/apiCabins";
+import toast from "react-hot-toast";
 const DIV1 = styled.div`
 position: fixed;
     top: 0px;
@@ -82,13 +83,26 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
-  const {toggleCreateForm} = useContext(CabinContext)
+
+  const {setIsFormOpen, toggleCreateForm} = useContext(CabinContext)
+  const queryClient = useQueryClient()
   const { register , handleSubmit } = useForm()
-const {isLoading  , mutate }  = useMutation({
-mutationFn : AddCabins
+const {isLoading : isCreating , mutate }  = useMutation({
+mutationFn : CreateCabins,
+onSuccess :  () => {
+  toast.success(`New Cabin successfully created`)
+  queryClient.invalidateQueries({
+    queryKey :['cabins']
+  })
+  setIsFormOpen(false)
+},
+// "Failed to create cabin"
+onError : (err)=> {
+  toast.error(err.message)
+},
 })
 function onSubmit(data) {
-console.log(data); 
+  mutate(data)
 }
   return ( 
     <DIV1>
@@ -122,7 +136,8 @@ console.log(data);
 
       <FormRow>
         <Label htmlFor="image">Cabin photo</Label>
-        <FileInput id="image" accept="image/*" {...register} />
+        <FileInput id="image" accept="image/*" {...register("image")} />
+
       </FormRow>
 
       <FormRow>
@@ -132,7 +147,7 @@ console.log(data);
         variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Create new cabin</Button>
+        <Button disabled={isCreating}>Create new cabin</Button>
       </FormRow>
     </Form>
     </DIV2>

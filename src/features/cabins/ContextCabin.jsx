@@ -13,7 +13,7 @@ export const CabinProvider = ({ children }) => {
   
 
   return (
-    <CabinContext.Provider value={{ isFormOpen, toggleCreateForm }}>
+    <CabinContext.Provider value={{ isFormOpen, setIsFormOpen, toggleCreateForm }}>
       {children}
     </CabinContext.Provider>
   );
