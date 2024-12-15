@@ -74,14 +74,7 @@ background: none;
     right: 35rem;
     z-index: 5;`
 
-const Label = styled.label`
-  font-weight: 500;
-`;
 
-const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-700);
-`;
 
 function CreateCabinForm() {
 
@@ -115,64 +108,54 @@ console.log(errors);
      <ButtonExit onClick={toggleCreateForm}  ><HiXMark /></ButtonExit>
     <DIV2>
      <Form onSubmit={handleSubmit(onSubmit , onError)}>
-      <FormRow2>
-        <Label htmlFor="name">Cabin name</Label>
-        <Input type="text" id="name" {...register("name" , {
-          required : "This field is required"
-        })}/>
-        {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow2>
+   
       <FormRow label="Cabin name" error={errors?.name?.message}>
       <Input type="text" id="name" {...register("name" , {
           required : "This field is required"
         })}/>
       </FormRow>
 
-      <FormRow2>
-        <Label htmlFor="maxCapacity">Maximum capacity</Label>
+      <FormRow label="Maximum capacity" error={errors?.name?.message}>
+        
         <Input type="number" id="maxCapacity" {...register("maxCapacity" , {
           required : "This field is required" , min : {
             value : 1 ,
             message : "Minimum capacity should be 1"
           }
         } )} />
-        {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow2>
+     
+      </FormRow>
 
-      <FormRow2>
-        <Label htmlFor="regularPrice">Regular price</Label>
+      <FormRow label="Regular price" error={errors?.name?.message}>
+  
         <Input type="number" id="regularPrice" {...register("regularPrice" , {
           required : "This field is required" , min : {
             value : 1 ,
             message : "Minimum Price should be 1"
           }
         })}/>
-        {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow2>
+         
+      </FormRow>
 
-      <FormRow2>
-        <Label htmlFor="discount">Discount</Label>
+      <FormRow label="Discount" error={errors?.name?.message}>
         <Input type="number" id="discount" defaultValue={0} {...register("discount" , {
           required : "This field is required" , validate : (value) => value <= getValues().regularPrice || "Discount should be less than regular price"
         })} />
-        {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow2>
+      </FormRow>
 
-      <FormRow2>
-        <Label htmlFor="description">Description for website</Label>
+      <FormRow label="Description for website" error={errors?.name?.message}>
         <Textarea type="number" id="description" defaultValue="" {...register("description" , {
           required : "This field is required"
         })}/>
-        {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow2>
+       </FormRow>
 
-      <FormRow2>
-        <Label htmlFor="image">Cabin photo</Label>
+      <FormRow label="Cabin photo" error={errors?.name?.message}>
+ 
         <FileInput id="image" accept="image/*" {...register("image" , {
           required : "This field is required"
         })} />
-{errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow2>
+ 
+      </FormRow>
 
       <FormRow2>
         {/* type is an HTML attribute! */}
