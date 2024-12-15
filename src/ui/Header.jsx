@@ -14,10 +14,16 @@ const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
   padding: 1.2rem 4.8rem;
   border-bottom: 1px solid var(--color-grey-100);
-  margin-left: 137rem;
+  margin-left: 119rem;
   @media (max-width: 768px) {
     padding: 1rem 2rem;
     margin-left: 0;
+  }
+  @media (max-width: 1200px) { /* نمایش در لپ‌تاپ‌های کوچک */
+    margin-left: 50rem;
+  }
+  @media (max-width: 992px) { /* نمایش در تبلت‌های بزرگ */
+    margin-left: 20rem;
   }
 `;
 
@@ -27,7 +33,7 @@ const Ul = styled.ul`
   margin: 0; /* Remove default margin */
 
   @media (max-width: 480px) {
-    gap: 0.6rem;
+    gap: 0.9rem;
   }
 `;
 
