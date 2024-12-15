@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-const styledFormRow = styled.div`
+const StyledFormRow = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 24rem 1fr 1.2fr;
@@ -26,18 +26,7 @@ const styledFormRow = styled.div`
     gap: 1.2rem;
   }
 `;
-const ButtonExit = styled.button`
-background: none;
-    border: none;
-    padding: 0.4rem;
-    border-radius: var(--border-radius-sm);
-    transform: translateX(0.8rem);
-    transition: 0.2s;
-    position: absolute;
-    font-size: 2.7rem;
-    top: 11rem;
-    right: 35rem;
-    z-index: 5;`
+
 
 const Label = styled.label`
   font-weight: 500;
@@ -47,16 +36,17 @@ const Error = styled.span`
   font-size: 1.4rem;
   color: var(--color-red-700);
 `;
+
 function FormRow({label, error , children}) {
   return (
-    <styledFormRow>
-    <Label htmlFor="name">{label}</Label>
+    <StyledFormRow>
+    {label && <Label htmlFor={children.props.id}>{label}</Label>}
     {/* <Input type="text" id="name" {...register("name" , {
       required : "This field is required"
     })}/> */}
     {children}
-    {errors?.name?.message && <Error>{errors.name.message}</Error>}
-  </styledFormRow>
+    {error && <Error>{error}</Error>}
+  </StyledFormRow>
   )
 }
 

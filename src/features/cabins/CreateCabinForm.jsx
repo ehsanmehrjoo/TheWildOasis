@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateCabins } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import FormRow from "../../ui/FormRow";
 const DIV1 = styled.div`
 position: fixed;
     top: 0px;
@@ -34,7 +35,7 @@ position: fixed;
     padding: 3.2rem 4rem;
     transition: 0.5s;
 `
-const FormRow = styled.div`
+const FormRow2 = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 24rem 1fr 1.2fr;
@@ -114,15 +115,20 @@ console.log(errors);
      <ButtonExit onClick={toggleCreateForm}  ><HiXMark /></ButtonExit>
     <DIV2>
      <Form onSubmit={handleSubmit(onSubmit , onError)}>
-      <FormRow>
+      <FormRow2>
         <Label htmlFor="name">Cabin name</Label>
         <Input type="text" id="name" {...register("name" , {
           required : "This field is required"
         })}/>
         {errors?.name?.message && <Error>{errors.name.message}</Error>}
+      </FormRow2>
+      <FormRow label="Cabin name" error={errors?.name?.message}>
+      <Input type="text" id="name" {...register("name" , {
+          required : "This field is required"
+        })}/>
       </FormRow>
 
-      <FormRow>
+      <FormRow2>
         <Label htmlFor="maxCapacity">Maximum capacity</Label>
         <Input type="number" id="maxCapacity" {...register("maxCapacity" , {
           required : "This field is required" , min : {
@@ -131,9 +137,9 @@ console.log(errors);
           }
         } )} />
         {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
+      <FormRow2>
         <Label htmlFor="regularPrice">Regular price</Label>
         <Input type="number" id="regularPrice" {...register("regularPrice" , {
           required : "This field is required" , min : {
@@ -142,33 +148,33 @@ console.log(errors);
           }
         })}/>
         {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
+      <FormRow2>
         <Label htmlFor="discount">Discount</Label>
         <Input type="number" id="discount" defaultValue={0} {...register("discount" , {
           required : "This field is required" , validate : (value) => value <= getValues().regularPrice || "Discount should be less than regular price"
         })} />
         {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
+      <FormRow2>
         <Label htmlFor="description">Description for website</Label>
         <Textarea type="number" id="description" defaultValue="" {...register("description" , {
           required : "This field is required"
         })}/>
         {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
+      <FormRow2>
         <Label htmlFor="image">Cabin photo</Label>
         <FileInput id="image" accept="image/*" {...register("image" , {
           required : "This field is required"
         })} />
 {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
+      <FormRow2>
         {/* type is an HTML attribute! */}
         <Button 
         // onClick={toggleCreateForm} 
@@ -176,7 +182,7 @@ console.log(errors);
           Cancel
         </Button>
         <Button disabled={isCreating}>Create new cabin</Button>
-      </FormRow>
+      </FormRow2>
     </Form>
     </DIV2>
     </DIV1>
