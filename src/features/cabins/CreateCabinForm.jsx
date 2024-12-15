@@ -55,7 +55,7 @@ function CreateCabinForm() {
 
   const {setIsFormOpen, toggleCreateForm} = useContext(CabinContext)
   const queryClient = useQueryClient()
-  const { register , handleSubmit , getValues  ,formState} = useForm()
+  const { register , handleSubmit , getValues  , formState} = useForm()
   const { errors } = formState;
 
 const {isLoading : isCreating , mutate }  = useMutation({
@@ -68,12 +68,14 @@ onSuccess :  () => {
   setIsFormOpen(false)
 },
  
+
 onError : (err)=> {
   toast.error(err.message)
 },
 })
 function onSubmit(data) {
-  mutate(data)
+  mutate({...data , image : data.image[0]})
+  // console.log(data);
 }
 function onError (errors) {
 // console.log(errors);
@@ -126,7 +128,7 @@ function onError (errors) {
 
       <FormRow label="Cabin photo" error={errors?.image?.message}>
  
-        <FileInput disabled={isCreating} id="image" accept="image/*" {...register("image" , {
+        <FileInput   disabled={isCreating} id="image" accept="image/*" {...register("image" , {
           required : "This field is required"
         })} />
  
