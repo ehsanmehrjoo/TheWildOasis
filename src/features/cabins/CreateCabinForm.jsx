@@ -35,32 +35,7 @@ position: fixed;
     padding: 3.2rem 4rem;
     transition: 0.5s;
 `
-const FormRow2 = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
 
-  padding: 1.2rem 0;
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    padding-bottom: 0;
-  }
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
-`;
 const ButtonExit = styled.button`
 background: none;
     border: none;
@@ -82,7 +57,7 @@ function CreateCabinForm() {
   const queryClient = useQueryClient()
   const { register , handleSubmit , getValues  ,formState} = useForm()
   const { errors } = formState;
-  console.log(errors);
+
 const {isLoading : isCreating , mutate }  = useMutation({
 mutationFn : CreateCabins,
 onSuccess :  () => {
@@ -101,7 +76,7 @@ function onSubmit(data) {
   mutate(data)
 }
 function onError (errors) {
-console.log(errors);
+// console.log(errors);
 }
   return ( 
     <DIV1>
@@ -110,14 +85,14 @@ console.log(errors);
      <Form onSubmit={handleSubmit(onSubmit , onError)}>
    
       <FormRow label="Cabin name" error={errors?.name?.message}>
-      <Input type="text" id="name" {...register("name" , {
+      <Input disabled={isCreating} type="text" id="name" {...register("name" , {
           required : "This field is required"
         })}/>
       </FormRow>
 
-      <FormRow label="Maximum capacity" error={errors?.name?.message}>
+      <FormRow label="Maximum capacity" error={errors?.maxCapacity?.message}>
         
-        <Input type="number" id="maxCapacity" {...register("maxCapacity" , {
+        <Input disabled={isCreating} type="number" id="maxCapacity" {...register("maxCapacity" , {
           required : "This field is required" , min : {
             value : 1 ,
             message : "Minimum capacity should be 1"
@@ -126,9 +101,9 @@ console.log(errors);
      
       </FormRow>
 
-      <FormRow label="Regular price" error={errors?.name?.message}>
+      <FormRow label="Regular price" error={errors?.regularPrice?.message}>
   
-        <Input type="number" id="regularPrice" {...register("regularPrice" , {
+        <Input disabled={isCreating} type="number" id="regularPrice" {...register("regularPrice" , {
           required : "This field is required" , min : {
             value : 1 ,
             message : "Minimum Price should be 1"
@@ -137,27 +112,27 @@ console.log(errors);
          
       </FormRow>
 
-      <FormRow label="Discount" error={errors?.name?.message}>
-        <Input type="number" id="discount" defaultValue={0} {...register("discount" , {
+      <FormRow label="Discount" error={errors?.discount?.message}>
+        <Input disabled={isCreating} type="number" id="discount" defaultValue={0} {...register("discount" , {
           required : "This field is required" , validate : (value) => value <= getValues().regularPrice || "Discount should be less than regular price"
         })} />
       </FormRow>
 
-      <FormRow label="Description for website" error={errors?.name?.message}>
-        <Textarea type="number" id="description" defaultValue="" {...register("description" , {
+      <FormRow label="Description for website" error={errors?.description?.message}>
+        <Textarea disabled={isCreating} type="number" id="description" defaultValue="" {...register("description" , {
           required : "This field is required"
         })}/>
        </FormRow>
 
-      <FormRow label="Cabin photo" error={errors?.name?.message}>
+      <FormRow label="Cabin photo" error={errors?.image?.message}>
  
-        <FileInput id="image" accept="image/*" {...register("image" , {
+        <FileInput disabled={isCreating} id="image" accept="image/*" {...register("image" , {
           required : "This field is required"
         })} />
  
       </FormRow>
 
-      <FormRow2>
+      <FormRow>
         {/* type is an HTML attribute! */}
         <Button 
         // onClick={toggleCreateForm} 
@@ -165,7 +140,7 @@ console.log(errors);
           Cancel
         </Button>
         <Button disabled={isCreating}>Create new cabin</Button>
-      </FormRow2>
+      </FormRow>
     </Form>
     </DIV2>
     </DIV1>
