@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+// import SignupForm from "../features/authentication/SignupForm"
 const LoginLayout = styled.main`
   min-height: 100vh;
   display: grid;
@@ -11,7 +11,9 @@ const LoginLayout = styled.main`
 `;
 
 function Login() {
-  return <LoginLayout>Login</LoginLayout>;
+  return <LoginLayout> 
+  {/* <SignupForm /> */}
+  </LoginLayout>;
 }
 
 export default Login;
