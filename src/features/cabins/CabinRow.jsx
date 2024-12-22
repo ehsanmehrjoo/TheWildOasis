@@ -56,7 +56,7 @@ function CabinRow({cabin}) {
  
 
 const [showForm , setShowForm] = useState(false);
-useDeleteCabin(isLoading ,)
+  const {isLoading , deleteCabins } = useDeleteCabin(name)
   return (<>
    <TableRow role="row">
    <Img src={image} alt={name} />
@@ -66,7 +66,7 @@ useDeleteCabin(isLoading ,)
    {discount ?   <Discount> {formatCurrency(discount)} </Discount> : <span>&mdash;</span>}
    <div>
    <button onClick={ () => setShowForm(!showForm)} >Edit</button>
-   <button onClick={ () => mutate(cabinId)} disabled={isLoading}>
+   <button onClick={ () =>  deleteCabins(cabinId)} disabled={isLoading}>
    Delete
    {/* <HiEllipsisVertical className="text-7xl"/> */}
    </button>

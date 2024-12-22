@@ -56,7 +56,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   const isEditSession = Boolean(editId);
 
 const [isFormOpen, setIsFormOpen] = useState(false);
-  const queryClient = useQueryClient();
+ 
 
   const { register, handleSubmit, getValues, formState } = useForm({
     defaultValues: isEditSession
@@ -65,7 +65,8 @@ const [isFormOpen, setIsFormOpen] = useState(false);
   });
 
   const { errors } = formState;
-
+  
+ const queryClient = useQueryClient();
   const { mutate: createCabin, isLoading: isCreating } = useMutation({
     mutationFn: CreateEditCabins,
     onSuccess: () => {

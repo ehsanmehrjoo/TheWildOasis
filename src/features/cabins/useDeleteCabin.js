@@ -21,6 +21,6 @@ export function useDeleteCabin   ({name})   {
       
     })
 
-    return {isLoading , deleteCabins} ; 
+    return {isLoading , deleteCabins   } ; 
 };
  
