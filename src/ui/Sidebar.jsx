@@ -61,7 +61,6 @@ const BlueLine = styled.div`
 
 
 function Sidebar() {
-  const { isLoading, cabins, error } = useCabins();
   
   const [isOpen, setIsOpen] = useState(false);
 

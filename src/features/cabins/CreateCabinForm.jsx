@@ -9,10 +9,10 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 // import { HiXMark } from "react-icons/hi2";
-import { CreateEditCabins } from "../../services/apiCabins";
+ 
 import FormRow from "../../ui/FormRow";
 import { useCreateCabin } from "./useCreateCabin";
-import useEditCabin from "./useEditCabin";
+import {useEditCabin} from "./useEditCabin";
  
 // const DIV1 = styled.div`
 // position: fixed;
@@ -72,29 +72,32 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
 
   function onSubmit(data) {
-    const image =
-      typeof data.image === "string" ? data.image : data.image[0];
+    const image = typeof data.image === "string" ? data.image : data.image[0];
 
-    if (isEditSession) {
-      editCabin({ ...data, image },
+    if (isEditSession)
+      editCabin(
+        { newCabinData: { ...data, image }, id: editId },
         {
-          onSuccess :(data) =>{
-            reset()
-          }  
-        });
-    } else {
-      createCabin({ ...data, image },
-        {
-          onSuccess :(data) =>{
-            reset()
-          }  
+          onSuccess: (data) => {
+            reset();
+          },
         }
       );
-    }
+    else
+      createCabin(
+        { ...data, image: image },
+        {
+          onSuccess: (data) => {
+            reset();
+          },
+        }
+      );
   }
-
+  function onError(errors) {
+    // console.log(errors);
+  }
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit , onError)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           disabled={isWorking}
