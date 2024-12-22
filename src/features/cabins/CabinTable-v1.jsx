@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
-import useCabins from "./useCabins";
 
 // استایل جدول
 const Table = styled.div`
@@ -47,7 +46,10 @@ const TableHeader = styled.header`
 
 function CabinTable() {
   // استفاده از هوک react-query برای دریافت اطلاعات کابین‌ها
- const { isLoading , cabins } = useCabins
+  const { isLoading, data: cabins, error } = useQuery({
+    queryKey: ["cabins"],
+    queryFn: getCabins,
+  });
 
   // نمایش اسپینر هنگام بارگذاری
   if (isLoading) return <Spinner />;
