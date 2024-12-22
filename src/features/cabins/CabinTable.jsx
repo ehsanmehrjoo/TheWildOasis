@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+
 import styled from "styled-components";
-import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import useCabins from "./useCabins";
@@ -46,14 +45,14 @@ const TableHeader = styled.header`
 `;
 
 function CabinTable() {
-  // استفاده از هوک react-query برای دریافت اطلاعات کابین‌ها
- const { isLoading , cabins } = useCabins
+  // استفاده صحیح از هوک useCabins
+  const { isLoading, cabins, error } = useCabins();
 
   // نمایش اسپینر هنگام بارگذاری
   if (isLoading) return <Spinner />;
 
-  // // مدیریت خطا (اختیاری)
-  // if (error) return <p>Error loading cabins...</p>;
+  // مدیریت خطا (اختیاری)
+  if (error) return <p>Error loading cabins...</p>;
 
   // نمایش جدول کابین‌ها
   return (
@@ -72,5 +71,6 @@ function CabinTable() {
     </Table>
   );
 }
+
 
 export default CabinTable;

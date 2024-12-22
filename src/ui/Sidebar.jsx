@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import MainNav from "./MainNav";
 import { HiMenuAlt3 } from "react-icons/hi";
+import useCabins from "../features/cabins/useCabins";
 
 const StyledSidebar = styled.aside`
 background-color: var(--color-grey-0);
@@ -60,6 +61,8 @@ const BlueLine = styled.div`
 
 
 function Sidebar() {
+  const { isLoading, cabins, error } = useCabins();
+  
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOutside = (e) => {
