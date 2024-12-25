@@ -7,6 +7,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
+import { useCreateCabin } from "./useCreateCabin";
  
 
 
@@ -51,12 +52,22 @@ const Discount = styled.div`
  
 
 function CabinRow({cabin}) {
+  const {id : cabinId , name , image , regularPrice ,  discount , maxCapacity , description} = cabin;
+  const [showForm , setShowForm] = useState(false);
+  const {isLoading , deleteCabin } = useDeleteCabin();
+  const {isCreating, createCabin} = useCreateCabin()
 
-  const {id : cabinId , name , image , regularPrice ,  discount , maxCapacity} = cabin;
+  function handelDuplicate(){
+    createCabin({
+      name : `Copy of ${name}`,
+      image ,regularPrice, discount, maxCapacity, regularPrice ,description
+    })
+  }
+
+  
  
 
-const [showForm , setShowForm] = useState(false);
-  const {isLoading , deleteCabins } = useDeleteCabin(name)
+
   return (<>
    <TableRow role="row">
    <Img src={image} alt={name} />
@@ -65,9 +76,9 @@ const [showForm , setShowForm] = useState(false);
    <Price>{formatCurrency(regularPrice)}</Price>
    {discount ?   <Discount> {formatCurrency(discount)} </Discount> : <span>&mdash;</span>}
    <div>
-   <button><HiSquare2Stack /></button>
+   <button disabled={isCreating} onClick={handelDuplicate}><HiSquare2Stack /></button>
    <button onClick={ () => setShowForm(!showForm)} ><HiPencil /></button>
-   <button onClick={ () =>  deleteCabins(cabinId)} disabled={isLoading}>
+   <button onClick={ () =>  deleteCabin(cabinId)} disabled={isLoading}>
    <HiTrash />
    {/* <HiEllipsisVertical className="text-7xl"/> */}
    </button>
