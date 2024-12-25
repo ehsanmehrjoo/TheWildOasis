@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { HiEllipsisVertical } from "react-icons/hi2";
+import { HiEllipsisVertical, HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabins } from "../../services/apiCabins";
 import { useState } from "react";
@@ -65,9 +65,10 @@ const [showForm , setShowForm] = useState(false);
    <Price>{formatCurrency(regularPrice)}</Price>
    {discount ?   <Discount> {formatCurrency(discount)} </Discount> : <span>&mdash;</span>}
    <div>
-   <button onClick={ () => setShowForm(!showForm)} >Edit</button>
+   <button><HiSquare2Stack /></button>
+   <button onClick={ () => setShowForm(!showForm)} ><HiPencil /></button>
    <button onClick={ () =>  deleteCabins(cabinId)} disabled={isLoading}>
-   Delete
+   <HiTrash />
    {/* <HiEllipsisVertical className="text-7xl"/> */}
    </button>
    </div>
