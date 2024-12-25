@@ -50,12 +50,71 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
  
+const StyledButton = styled.button`
+  background-color: var(--color-grey-100);
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
 
+  &:hover {
+    background-color: var(--color-grey-200);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    background-color: var(--color-grey-300);
+  }
+
+  &:disabled {
+    background-color: var(--color-grey-50);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  svg {
+    font-size: 1.6rem;
+    color: var(--color-grey-600);
+  }
+`;
+
+const ActionsContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid var(--color-grey-100);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.6rem;
+  overflow: hidden;
+  z-index: 10;
+
+  button {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    background: none;
+    text-align: left;
+
+    &:hover {
+      background-color: var(--color-grey-100);
+    }
+  }
+`;
 function CabinRow({cabin}) {
   const {id : cabinId , name , image , regularPrice ,  discount , maxCapacity , description} = cabin;
   const [showForm , setShowForm] = useState(false);
   const {isLoading , deleteCabin } = useDeleteCabin();
-  const {isCreating, createCabin} = useCreateCabin()
+  const {isCreating, createCabin} = useCreateCabin();
+  const [show, setShow ] = useState(false);
 
   function handelDuplicate(){
     createCabin({
@@ -76,11 +135,14 @@ function CabinRow({cabin}) {
    <Price>{formatCurrency(regularPrice)}</Price>
    {discount ?   <Discount> {formatCurrency(discount)} </Discount> : <span>&mdash;</span>}
    <div>
-   <button disabled={isCreating} onClick={handelDuplicate}><HiSquare2Stack /></button>
+   
+   <button onClick={() => setShow(!show)}><HiEllipsisVertical className="text-7xl"/>
+   {show && <><button disabled={isCreating} onClick={handelDuplicate}><HiSquare2Stack /></button>
    <button onClick={ () => setShowForm(!showForm)} ><HiPencil /></button>
    <button onClick={ () =>  deleteCabin(cabinId)} disabled={isLoading}>
    <HiTrash />
-   {/* <HiEllipsisVertical className="text-7xl"/> */}
+   </button>
+   </>}
    </button>
    </div>
    </TableRow>
