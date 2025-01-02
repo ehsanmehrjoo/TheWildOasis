@@ -28,36 +28,36 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="min-nights"
-        disabled={isUpdating}
           defaultValue={minBookingLength}
           onBlur={(e) => handelUpdate(e, 'minBookingLength')}
+        disabled={isUpdating}
         />
       </FormRow>
       <FormRow label="Maximum nights/booking">
         <Input
           type="number"
           id="max-nights"
-        disabled={isUpdating}
           defaultValue={maxBookingLength}
           onBlur={(e) => handelUpdate(e, 'maxBookingLength')}
+        disabled={isUpdating}
         />
       </FormRow>
       <FormRow label="Maximum guests/booking">
         <Input
           type="number"
           id="max-guests"
-        disabled={isUpdating}
           defaultValue={maxGuestsPerBooking}
           onBlur={(e) => handelUpdate(e, 'maxGuestsPerBooking')}
+        disabled={isUpdating}
         />
       </FormRow>
       <FormRow label="Breakfast price">
         <Input
           type="number"
           id="breakfast-price"
-        disabled={isUpdating}
           defaultValue={breakfastPrice}
           onBlur={(e) => handelUpdate(e, 'breakfastPrice')}
+        disabled={isUpdating}
         />
       </FormRow>
     </Form>

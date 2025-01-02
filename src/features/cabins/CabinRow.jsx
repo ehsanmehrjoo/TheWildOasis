@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 import { HiEllipsisVertical, HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabins } from "../../services/apiCabins";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { useCreateCabin } from "./useCreateCabin";
@@ -116,11 +113,15 @@ function CabinRow({cabin}) {
   const {isCreating, createCabin} = useCreateCabin();
   const [show, setShow ] = useState(false);
 
-  function handelDuplicate(){
+  function handleDuplicate() {
     createCabin({
-      name : `Copy of ${name}`,
-      image ,regularPrice, discount, maxCapacity, regularPrice ,description
-    })
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
   }
 
   
@@ -137,7 +138,7 @@ function CabinRow({cabin}) {
    <div>
    
    <button onClick={() => setShow(!show)}><HiEllipsisVertical className="text-7xl"/>
-   {show && <><button disabled={isCreating} onClick={handelDuplicate}><HiSquare2Stack /></button>
+   {show && <><button disabled={isCreating} onClick={handleDuplicate}><HiSquare2Stack /></button>
    <button onClick={ () => setShowForm(!showForm)} ><HiPencil /></button>
    <button onClick={ () =>  deleteCabin(cabinId)} disabled={isLoading}>
    <HiTrash />
