@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import CreateCabinForm from "../features/cabins/CreateCabinForm";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -50,9 +51,11 @@ const Button = styled.button`
 `;
  
 
-function Modal() {
+function Modal({children}) {
   return (
-    <StyledModal>Modal</StyledModal>
+    <StyledModal>
+      {children}
+    </StyledModal>
   )
 }
 

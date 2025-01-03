@@ -1,7 +1,8 @@
 
 import { useState } from 'react';
 import Button from '../../ui/Button'
-import CreateCabinForm from './CreateCabinForm'
+import Modal from '../../ui/Modal';
+import CreateCabinForm from './CreateCabinForm';
  
 
 function AddCabin() {
@@ -9,7 +10,7 @@ function AddCabin() {
   return (
     <div>
      <Button variation="primary" onClick={() => setIsOpenModal((show) => !show)}>Add new cabin</Button>
-     {isOpenModal && <CreateCabinForm />}
+     {isOpenModal && <Modal><CreateCabinForm /></Modal>}
     </div>
   )
 }
