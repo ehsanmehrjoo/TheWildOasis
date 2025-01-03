@@ -1,14 +1,15 @@
-import React, { useContext } from 'react'
+
+import { useState } from 'react';
 import Button from '../../ui/Button'
 import CreateCabinForm from './CreateCabinForm'
-import { CabinContext } from './ContextCabin'
+ 
 
 function AddCabin() {
-     const {isFormOpen , toggleCreateForm} = useContext(CabinContext)
+  const [isOpenModal, setIsOpenModal] = useState(false);
   return (
     <div>
-     <Button variation="primary" onClick={() => toggleCreateForm()}>Add new cabin</Button>
-     {isFormOpen && <CreateCabinForm />}
+     <Button variation="primary" onClick={() => setIsOpenModal((show) => !show)}>Add new cabin</Button>
+     {isOpenModal && <CreateCabinForm />}
     </div>
   )
 }
