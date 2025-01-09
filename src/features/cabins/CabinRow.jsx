@@ -5,6 +5,8 @@ import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { useCreateCabin } from "./useCreateCabin";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
  
 
 
@@ -108,11 +110,13 @@ const DropdownMenu = styled.div`
 `;
 function CabinRow({cabin}) {
   const {id : cabinId , name , image , regularPrice ,  discount , maxCapacity , description} = cabin;
-  const [showForm , setShowForm] = useState(false);
   const {isLoading , deleteCabin } = useDeleteCabin();
   const {isCreating, createCabin} = useCreateCabin();
   const [show, setShow ] = useState(false);
 
+  function handleDeleteCabin(){
+    deleteCabin(cabinId)
+  }
   function handleDuplicate() {
     createCabin({
       name: `Copy of ${name}`,
@@ -124,31 +128,47 @@ function CabinRow({cabin}) {
     });
   }
 
-  
- 
-
-
-  return (<>
+  return (
    <TableRow role="row">
    <Img src={image} alt={name} />
    <Cabin>{name}</Cabin>
    <div>Fits up to {maxCapacity} guests</div>
    <Price>{formatCurrency(regularPrice)}</Price>
    {discount ?   <Discount> {formatCurrency(discount)} </Discount> : <span>&mdash;</span>}
+
    <div>
-   
-   <button onClick={() => setShow(!show)}><HiEllipsisVertical className="text-7xl"/>
+   <button onClick={() => setShow(!show)}><HiEllipsisVertical className="text-7xl"/></button>
    {show && <><button disabled={isCreating} onClick={handleDuplicate}><HiSquare2Stack /></button>
-   <button onClick={ () => setShowForm(!showForm)} ><HiPencil /></button>
-   <button onClick={ () =>  deleteCabin(cabinId)} disabled={isLoading}>
+   <Modal>
+
+   <Modal.Open opens="edit">
+   <button><HiPencil /></button>
+   </Modal.Open>
+
+   <Modal.Window name="edit">
+   <CreateCabinForm cabinToEdit={cabin}/>
+   </Modal.Window>
+   {/* onClick={ () =>  deleteCabin(cabinId)} disabled={isLoading} */}
+  <Modal.Open opens='delete'>
+
+   <button >
    <HiTrash />
    </button>
+  </Modal.Open>
+
+  <Modal.Window name='delete'>
+
+    <ConfirmDelete resourceName={name} onConfirm={handleDeleteCabin} disabled={isLoading}/>
+
+  </Modal.Window>
+ 
+   </Modal>
    </>}
-   </button>
+
    </div>
    </TableRow>
-   {showForm && <CreateCabinForm cabinToEdit={cabin}/>}
-   </>
+    
+   
   )
 }
 
