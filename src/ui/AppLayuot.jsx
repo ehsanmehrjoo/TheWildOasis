@@ -13,7 +13,6 @@ const StyledAppLayout = styled.div`
     "sidebar main";
   height: 100vh;
 
-
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -27,27 +26,36 @@ const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 4.6rem;
   grid-area: main;
-  overflow-y: auto; /* Enables scrolling on smaller screens */
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
 `;
 
 const SidebarWrapper = styled.div`
   grid-area: sidebar;
 
-  @media (min-width: 768px) {
-    display: none; /* Hide sidebar on mobile */
+  @media (max-width: 768px) {
+    display: none;
   }
 
-  @media (min-width: 769px) {
-    display: block; /* Show sidebar on desktop */
+  @media (max-width: 769px) {
+    display: block;
   }
 `;
 
 const Container = styled.div`
-max-width: 120rem;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-gap: 3.2rem;
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+ 
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    gap: 2rem;
+  }
 `;
 
 function AppLayout() {
@@ -58,8 +66,8 @@ function AppLayout() {
         <Sidebar />
       </SidebarWrapper>
       <Main>
-      <Container>
-        <Outlet />
+        <Container>
+          <Outlet />
         </Container>
       </Main>
     </StyledAppLayout>

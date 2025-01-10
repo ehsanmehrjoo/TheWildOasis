@@ -25,12 +25,19 @@ const TableRow = styled.div`
 
 const Img = styled.img`
   display: block;
-  width: 6.4rem;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.5) translateX(-7px);
+  width: 100vh; /* عرض کامل ستون */
+  height: 7vh; /* حفظ نسبت تصویر */
+  object-fit: cover; /* برش تصویر به‌صورت متناسب */
+  object-position: center; /* مرکز تصویر */
+  border-radius: 0.4rem; //گوشه‌های گرد برای زیبایی
+  max-width: 8rem;
+  @media (max-width: 768px) {
+    width: 50rem; /* اندازه کوچک‌تر در دستگاه‌های کوچک */
+    height: 7.5rem;
+    max-width: 6rem;
+  }
 `;
+
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -130,7 +137,7 @@ function CabinRow({cabin}) {
   }
 
   return (
-   <Table.Row role="row">
+   <Table.Row role="row" columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
    <Img src={image} alt={name} />
    <Cabin>{name}</Cabin>
    <div>Fits up to {maxCapacity} guests</div>

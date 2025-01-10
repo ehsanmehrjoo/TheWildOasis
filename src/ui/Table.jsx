@@ -8,6 +8,12 @@ const StyledTable = styled.div`
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
+  width: 100%;
+     @media (max-width: 768px) {
+    overflow-x: auto; /* فعال کردن اسکرول افقی */
+    font-size: 1.2rem;
+    width: 100%;
+   }
 `;
 
 const CommonRow = styled.div`
@@ -30,10 +36,23 @@ const StyledHeader = styled(CommonRow)`
 `;
 
 const StyledRow = styled(CommonRow)`
+
+
+
+  padding: 1.4rem 2.4rem;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--color-grey-100);
+  }
   padding: 1.2rem 2.4rem;
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
+  }
+  @media (max-width: 768px) {
+    overflow-x: auto; /* فعال کردن اسکرول افقی */
+    font-size: 1.2rem;
+    width: 100%;
   }
 `;
 
@@ -68,7 +87,7 @@ function Table({columns ,children}){
 }
 function Header({children}){
   const {columns} = useContext(contextTable)
-  return <StyledHeader role="row" columns={columns} as="header">{children}</StyledHeader>
+  return <StyledHeader role="row" columns={columns} >{children}</StyledHeader>
 }
 function Row({children}){
   const {columns} = useContext(contextTable)
