@@ -7,6 +7,7 @@ import { useDeleteCabin } from "./useDeleteCabin";
 import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Table from "../../ui/Table";
  
 
 
@@ -129,7 +130,7 @@ function CabinRow({cabin}) {
   }
 
   return (
-   <TableRow role="row">
+   <Table.Row role="row">
    <Img src={image} alt={name} />
    <Cabin>{name}</Cabin>
    <div>Fits up to {maxCapacity} guests</div>
@@ -166,7 +167,7 @@ function CabinRow({cabin}) {
    </>}
 
    </div>
-   </TableRow>
+   </Table.Row>
     
    
   )

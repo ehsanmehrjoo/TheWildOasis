@@ -3,24 +3,23 @@ import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import useCabins from "./useCabins";
-import Table from "../../ui/Table";
 
 // استایل جدول
-// const Table = styled.div`
-//   border: 1px solid var(--color-grey-200);
-//   font-size: 1.4rem;
-//   background-color: var(--color-grey-0);
-//   border-radius: 7px;
-//   overflow: hidden;
-//   width: 100%;
+const Table = styled.div`
+  border: 1px solid var(--color-grey-200);
+  font-size: 1.4rem;
+  background-color: var(--color-grey-0);
+  border-radius: 7px;
+  overflow: hidden;
+  width: 100%;
 
-//   /* اضافه کردن اسکرول برای موبایل */
-//   @media (max-width: 768px) {
-//     overflow-x: auto; /* فعال کردن اسکرول افقی */
-//     font-size: 1.2rem;
-//     width: 100%;
-//   }
-// `;
+  /* اضافه کردن اسکرول برای موبایل */
+  @media (max-width: 768px) {
+    overflow-x: auto; /* فعال کردن اسکرول افقی */
+    font-size: 1.2rem;
+    width: 100%;
+  }
+`;
 
 // استایل هدر جدول
 const TableHeader = styled.header`
@@ -57,15 +56,15 @@ function CabinTable() {
 
   // نمایش جدول کابین‌ها
   return (
-    <Table  columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
-      <Table.Header role="row">
+    <Table role="table">
+      <TableHeader role="row">
         <div></div>
         <div>Cabin</div>
         <div>Capacity</div>
         <div>Price</div>
         <div>Discount</div>
         <div></div>
-      </Table.Header>
+      </TableHeader>
       {cabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
       ))}
