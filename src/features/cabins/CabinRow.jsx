@@ -8,6 +8,7 @@ import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
  
 
 
@@ -145,8 +146,9 @@ function CabinRow({cabin}) {
    {discount ?   <Discount> {formatCurrency(discount)} </Discount> : <span>&mdash;</span>}
 
    <div>
-   <button onClick={() => setShow(!show)}><HiEllipsisVertical className="text-7xl"/></button>
-   {show && <><button disabled={isCreating} onClick={handleDuplicate}><HiSquare2Stack /></button>
+   {/* <button onClick={() => setShow(!show)}><HiEllipsisVertical className="text-7xl"/></button> */}
+   {/* {show && <> */}
+   <button disabled={isCreating} onClick={handleDuplicate}><HiSquare2Stack /></button>
    <Modal>
 
    <Modal.Open opens="edit">
@@ -171,7 +173,17 @@ function CabinRow({cabin}) {
   </Modal.Window>
  
    </Modal>
-   </>}
+   {/* </>} */}
+   <Menus.Menu>
+    <Menus.Toggle id={cabinId}/>
+    <Menus.List id={cabinId}>
+    
+    <Menus.Button>Duplicate</Menus.Button>
+    <Menus.Button>Edit</Menus.Button>
+    <Menus.Button>Delete</Menus.Button>
+
+    </Menus.List>
+   </Menus.Menu>
 
    </div>
    </Table.Row>

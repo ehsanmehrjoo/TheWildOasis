@@ -4,6 +4,7 @@ import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import useCabins from "./useCabins";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 // استایل جدول
 // const Table = styled.div`
@@ -57,6 +58,7 @@ function CabinTable() {
 
   // نمایش جدول کابین‌ها
   return (
+    <Menus>
     <Table  columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
       <Table.Header role="row">
         <div></div>
@@ -73,6 +75,7 @@ function CabinTable() {
   )}>
       </Table.Body>
     </Table>
+    </Menus>
   );
 }
 
