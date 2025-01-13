@@ -75,11 +75,11 @@ function Sidebar() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, []);
 
   return (
     <>
-    <BlueLine class="blue-line"></BlueLine>
+    <BlueLine className="blue-line"></BlueLine>
       <MenuButton onClick={() => setIsOpen(!isOpen)}>
         <HiMenuAlt3 />
       </MenuButton>
