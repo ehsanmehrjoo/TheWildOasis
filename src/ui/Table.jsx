@@ -8,7 +8,7 @@ const StyledTable = styled.div`
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
-  width: 100%;
+  width: 118rem;
      @media (max-width: 768px) {
     overflow-x: auto; /* فعال کردن اسکرول افقی */
     font-size: 1.2rem;
