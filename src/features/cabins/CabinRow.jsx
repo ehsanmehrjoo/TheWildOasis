@@ -137,53 +137,53 @@ function CabinRow({cabin}) {
   }
 
   return (
-   <Table.Row role="row" columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
-   <Img src={image} alt={name} />
-   <Cabin>{name}</Cabin>
-   <div>Fits up to {maxCapacity} guests</div>
-   <Price>{formatCurrency(regularPrice)}</Price>
-   {discount ?   <Discount> {formatCurrency(discount)} </Discount> : <span>&mdash;</span>}
-
-   <div>
-   
-   {/* <button disabled={isCreating} onClick={handleDuplicate}><HiSquare2Stack /></button> */}
-   <Modal>
-   <Menus.Menu>
-    <Menus.Toggle id={cabinId}/>
-    <Menus.List id={cabinId}>
+    <Table.Row role="row" columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+    <Img src={image} alt={name} />
+    <Cabin>{name}</Cabin>
+    <div>Fits up to {maxCapacity} guests</div>
+    <Price>{formatCurrency(regularPrice)}</Price>
+    {discount ?   <Discount> {formatCurrency(discount)} </Discount> : <span>&mdash;</span>}
+ 
+    <div>
     
-    <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>Duplicate</Menus.Button>
 
-    <Modal.Open opens="edit">
- <Menus.Button icon={<HiPencil />}>Edit</Menus.Button> 
-   </Modal.Open>
-    <Modal.Open opens='delete'>
-     <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-  </Modal.Open>
-
-    </Menus.List>
+    <Modal>
+    <Menus.Menu>
+     <Menus.Toggle id={cabinId}/>
+     <Menus.List id={cabinId}>
+     
+     <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>Duplicate</Menus.Button>
+ 
+  
+     
+     <Modal.Open opens="edit">
+        <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+     </Modal.Open>
+     <Modal.Open opens='delete'>
+       <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+     </Modal.Open>
+     </Menus.List>
    
-
-   <Modal.Window name="edit">
-
-   <CreateCabinForm cabinToEdit={cabin}/>
+ 
+    <Modal.Window name="edit">
+    <CreateCabinForm cabinToEdit={cabin}/>
+    </Modal.Window>
+ 
+   
+ 
+   <Modal.Window name='delete'>
+ 
+     <ConfirmDelete resourceName={name} onConfirm={handleDeleteCabin} disabled={isLoading}/>
+ 
    </Modal.Window>
-   
+  
+    {/* </>} */}
+  
+    </Menus.Menu>
+    </Modal>
  
-  <Modal.Window name='delete'>
-
-    <ConfirmDelete resourceName={name} onConfirm={handleDeleteCabin} disabled={isLoading}/>
-
-  </Modal.Window>
- 
-   {/* </>} */}
-   
-   </Menus.Menu>
-   </Modal>
-
-   </div>
-   </Table.Row>
-    
+    </div>
+    </Table.Row>
    
   )
 }
