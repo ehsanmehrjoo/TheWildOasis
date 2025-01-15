@@ -4,6 +4,11 @@ const TableOperations = styled.div`
   display: flex;
   align-items: center;
   gap: 1.6rem;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+
+  @media (max-width: 768px) {
+    flex-wrap: nowrap; /* No wrapping for larger screens */
+  }
 `;
 
 export default TableOperations;

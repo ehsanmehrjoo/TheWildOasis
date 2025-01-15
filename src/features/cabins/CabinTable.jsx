@@ -1,5 +1,4 @@
 
-import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import useCabins from "./useCabins";
@@ -49,10 +48,10 @@ import { useSearchParams } from "react-router-dom";
 
 function CabinTable() {
 
-  const { isLoading, cabins, error } = useCabins();
+  const { isLoading, cabins = [], error } = useCabins();
   const [searchParams ]  = useSearchParams()
 
-
+  // Filter
   const filterValue = searchParams.get('discount') || 'all';
   let filterCabin ;
   if (filterValue === 'all') {
@@ -64,6 +63,14 @@ function CabinTable() {
   if(filterValue === 'with-discount'){
     filterCabin = cabins.filter((cabin) => cabin.discount);
   }
+
+  // Sort
+  const sortValue = searchParams.get('sortBy') || 'startDate-asc';
+  const [field , direction] = sortValue.split('-');
+  
+  const modifier = direction === 'asc' ?  1  : -1;
+  const sortedCabins  = filterCabin.sort((a, b) => (a[field] - b[field])  * modifier)
+   
 
   // نمایش اسپینر هنگام بارگذاری
   if (isLoading) return <Spinner />;
@@ -84,8 +91,10 @@ function CabinTable() {
         <div></div>
       </Table.Header>
       <Table.Body
-       data={filterCabin} 
-       render={(cabin) => (
+      //  data={Cabins} 
+      //  data={filterCabin} 
+          data={sortedCabins} 
+          render={(cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
   )}>
       </Table.Body>
