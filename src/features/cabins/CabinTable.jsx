@@ -5,6 +5,7 @@ import useCabins from "./useCabins";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty";
 
 // استایل جدول
 // const Table = styled.div`
@@ -74,6 +75,7 @@ function CabinTable() {
 
   // نمایش اسپینر هنگام بارگذاری
   if (isLoading) return <Spinner />;
+  if(!cabins.length) return  <Empty resourceName='cabins'/>
 
   // مدیریت خطا (اختیاری)
   if (error) return <p>Error loading cabins...</p>;
