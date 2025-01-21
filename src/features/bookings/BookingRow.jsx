@@ -42,10 +42,10 @@ function BookingRow({
     endDate,
     numNights,
     numGuests,
-    totalPrice,
+    tooalPrice,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    guests: { fullName: guestName, email } = {},
+    cabins: { name: cabinName } = {},
   },
 }) {
   const statusToTagName = {
@@ -54,13 +54,15 @@ function BookingRow({
     "checked-out": "silver",
   };
 
+  const formattedStatus = status ? status.replace("-", " ") : "Unknown";
+
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+      <Cabin>{cabinName || "No cabin info"}</Cabin>
 
       <Stacked>
-        <span>{guestName}</span>
-        <span>{email}</span>
+        <span>{guestName || "Unknown guest"}</span>
+        <span>{email || "No email provided"}</span>
       </Stacked>
 
       <Stacked>
@@ -76,9 +78,9 @@ function BookingRow({
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Tag type={statusToTagName[status] || "grey"}>{formattedStatus}</Tag>
 
-      <Amount>{formatCurrency(totalPrice)}</Amount>
+      <Amount>{formatCurrency(tooalPrice)}</Amount>
     </Table.Row>
   );
 }
