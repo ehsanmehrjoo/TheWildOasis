@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import MainNav from "./MainNav";
 import { HiMenuAlt3 } from "react-icons/hi";
-import useCabins from "../features/cabins/useCabins";
+import Uploader from "../data/Uploader";
 
 const StyledSidebar = styled.aside`
 background-color: var(--color-grey-0);
@@ -86,6 +86,7 @@ function Sidebar() {
       <StyledSidebar className="sidebar" isOpen={isOpen}>
         <Logo />
         <MainNav />
+        <Uploader />
       </StyledSidebar>
     </>
   );
