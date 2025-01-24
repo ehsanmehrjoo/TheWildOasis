@@ -11,15 +11,16 @@ const filter = !filterValue || filterValue === "all" ? null :
 // {field : "totalPrice" , value : 5000 , method : "gte" };
 
 // Sort by
-const sortValue = searchparams.get('sortBy')
-// const sortBy = !sortValue || sortValue === "startDate-desc" ? null : ""
+const sortByRaw = searchparams.get('sortBy') || 'startDate-desc';
+const [field , direction] = sortByRaw.split("-");
+const sortBy = {field , direction};
 
   const { isLoading, data: bookings = [], error } = useQuery({
-    queryKey: ["bookings", filter],
-    queryFn: () => getBookings({filter}),
+    queryKey: ["bookings", filter , sortBy],
+    queryFn: () => getBookings({filter, sortBy }),
   });
 
-  console.log(bookings);
+  // console.log(bookings);
   return { isLoading, bookings, error };
 }
 
