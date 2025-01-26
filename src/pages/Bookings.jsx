@@ -11,7 +11,7 @@ function Bookings() {
     </Row>
 
     <BookingTable />
-
+   
     </>
   );
 }

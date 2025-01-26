@@ -100,7 +100,7 @@ function Body({data , render}){
   </StyledBody>
 }
 
-// function Footer(){}
+
 
 Table.Header = Header;
 Table.Row = Row;
