@@ -6,7 +6,7 @@ function useSettings() {
     queryKey : ['settings'],
       queryFn : getSettings
    })
-   console.log(settings);
+   
   return {settings , isLoading , error }
 }
 

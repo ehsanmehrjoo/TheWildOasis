@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
  
 import {HiOutlineHome , HiCalendarDays, HiOutlineHomeModern,HiOutlineUsers  ,HiCog6Tooth  } from "react-icons/hi2";
+import useCabins from "../features/cabins/useCabins";
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -52,6 +53,7 @@ const StyledLink = styled(NavLink)`
  
 
 function MainNav() {
+  const {prefetchCabins} = useCabins()
   return (
     <nav>
       <NavList>
@@ -68,7 +70,7 @@ function MainNav() {
         </StyledLink>
         </li>
         <li>
-        <StyledLink to="/cabins">
+        <StyledLink to="/cabins" onMouseEnter={prefetchCabins}>
         <HiOutlineHomeModern />
         <span>Cabins</span>
         </StyledLink>

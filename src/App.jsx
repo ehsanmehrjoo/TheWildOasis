@@ -1,5 +1,5 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import {  Navigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Bookings from './pages/Bookings';
@@ -70,6 +70,7 @@ const router = createBrowserRouter([
 
 ])
 function App() {
+
 return  <QueryClientProvider client={queryClient}>
 <ReactQueryDevtools initialIsOpen={false} /> 
  <GlobalStyle />
