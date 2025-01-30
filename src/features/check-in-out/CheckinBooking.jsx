@@ -12,9 +12,9 @@ import { useEffect, useState } from "react";
 import Checkbox from "../../ui/Checkbox";
 import { formatCurrency } from "../../utils/helpers";
 import useCheckin from "./useCheckin";
+import useSettings from "../settings/useSettings";
 
 const Box = styled.div`
-  /* Box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
@@ -23,8 +23,12 @@ const Box = styled.div`
 
 function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
+  const [addBreakfast, setAddBreakfast] = useState(false);
   const { isLoading, booking } = useBooking();
+  const { settings, isLoading: isLoadingSettings, error } = useSettings();
   const moveBack = useMoveBack();
+
+  console.log(settings);
 
   useEffect(() => {
     if (booking) {
@@ -32,8 +36,9 @@ function CheckinBooking() {
     }
   }, [booking]);
 
- const  { isCheckingIn , checkin} = useCheckin()
-  if (isLoading) return <Spinner />;
+  const { isCheckingIn, checkin } = useCheckin();
+
+  if (isLoading || isLoadingSettings) return <Spinner />;
   if (!booking) return <p>No booking data found.</p>;
 
   const {
@@ -41,20 +46,27 @@ function CheckinBooking() {
     guests,
     totalPrice,
     numGuests,
-    hasBreakfast,
     numNights,
     isPaid,
   } = booking;
 
+  const optionalBreakfastPrice = settings.breakfastPrice * numNights * numGuests;
+
   function handleCheckin() {
-    // اگر رزرو پرداخت نشده و کاربر پرداخت را تأیید نکرده باشد، Check-in انجام نشود
     if (!isPaid && !confirmPaid) {
       alert("Please confirm that the payment has been made.");
       return;
     }
-  
-    // در غیر این صورت، Check-in انجام شود
-    checkin(bookingId);
+    if(addBreakfast){
+      checkin({bookingId , breakfast : {
+        hasBreakfast : true,
+        extrasPrice : optionalBreakfastPrice,
+        totalPrice : totalPrice + optionalBreakfastPrice
+      }})
+    }
+    else{
+     checkin({bookingId, breakfast : {}});
+     }
   }
 
   return (
@@ -66,24 +78,49 @@ function CheckinBooking() {
 
       <BookingDataBox booking={booking} />
 
+      {!booking.hasBreakfast && (
+        <Box>
+        <Checkbox
+          checked={addBreakfast}
+          onChange={() => {
+            setAddBreakfast((add) => !add);
+            setConfirmPaid(false);
+          }}
+          id="breakfast"
+        >
+          Want to add breakfast for {formatCurrency(optionalBreakfastPrice)}?
+        </Checkbox>
+      </Box>)}
+
       <Box>
-      <Checkbox
-  checked={isPaid || confirmPaid} // باشد، تیک زده شوداگر پرداخت شده 
-  onChange={() => setConfirmPaid((confirm) => !confirm)}
-  id="confirm"
-  disabled={isPaid} // اگر پرداخت شده باشد، غیرفعال شود
->
-  I confirm that {guests.fullName} has paid the total amount of {formatCurrency(totalPrice)}
-</Checkbox>
+        <Checkbox
+          checked={confirmPaid}
+          onChange={() => setConfirmPaid((confirm) => !confirm)}
+          id="confirm"
+          disabled={isPaid}
+        >
+          I confirm that {guests.fullName} has paid the total amount of 
+          {!addBreakfast
+            ? formatCurrency(totalPrice)
+            : `${formatCurrency(totalPrice + optionalBreakfastPrice)} 
+               (${formatCurrency(totalPrice)} + ${formatCurrency(optionalBreakfastPrice)})`}
+        </Checkbox>
       </Box>
 
       <ButtonGroup>
-      <Button
-  disabled={!isPaid && !confirmPaid} // اگر پرداخت نشده و تأیید نشده باشد، غیرفعال شود
-  onClick={handleCheckin}
->
-  Check in booking #{bookingId}
-</Button>
+        {!isPaid && !confirmPaid && (
+          <span style={{ color: "red", margin: "20px" }}>
+            Please confirm that the payment has been made.
+          </span>
+        )}
+
+        <Button
+          disabled={!isPaid && !confirmPaid}
+          onClick={handleCheckin}
+        >
+          Check in booking #{bookingId}
+        </Button>
+
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
