@@ -7,12 +7,11 @@ import Menus from "../../ui/Menus";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-import { HiArrowDownOnSquare, HiEye, HiTrash } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiTrash } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import { deleteBooking } from "../../services/apiBookings";
-import Modal from "../../ui/Modal";
-import ConfirmDelete from "../../ui/ConfirmDelete";
-import { useDeleteBooking } from "./useDeleteBooking";
+ 
+import  useDeleteBooking  from "./useDeleteBooking";
+import useCheckOut from "../check-in-out/useCheckOut";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -63,6 +62,8 @@ function BookingRow({
 const navigate = useNavigate()
   const formattedStatus = status ? status.replace("-", " ") : "Unknown";
   const { isDeleting, deleteBooking } = useDeleteBooking()
+  const {isCheckingOut, checkout } = useCheckOut()
+ 
 function handleDeleteBooking(){
   deleteBooking(bookingId)
 }
@@ -96,16 +97,13 @@ function handleDeleteBooking(){
       <Menus.List id={bookingId}>
         <Menus.Button icon={<HiEye />} onClick={() => navigate(`/bookings/${bookingId}`)}>See details</Menus.Button>
         {status === "unconfirmed" && <Menus.Button icon={<HiArrowDownOnSquare />} onClick={() => navigate(`/checkin/${bookingId}`)}>Check in</Menus.Button>}
+        {status === "checked-in" && <Menus.Button icon={<HiArrowUpOnSquare />} disabled={isCheckingOut} onClick={() => checkout({bookingId})} >Check out</Menus.Button>}
+
         
-         <Modal.Open opens='delete'>
-         <Menus.Button   onClick={() => deleteBooking(bookingId)}>Delete booking</Menus.Button>
-             </Modal.Open>
+         <Menus.Button  icon={<HiTrash />} onClick={handleDeleteBooking}>Delete booking</Menus.Button>
+             
       </Menus.List>
-      <Modal.Window name='delete'>
- 
-     <ConfirmDelete   onConfirm={handleDeleteBooking}  />
- 
-   </Modal.Window>
+      
       </Menus.Menu>
     </Table.Row>
   );
