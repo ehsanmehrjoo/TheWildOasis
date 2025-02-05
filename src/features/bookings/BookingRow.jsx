@@ -4,6 +4,8 @@ import { format, isToday } from "date-fns";
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import ConfirmDelete from "../../ui/ConfirmDelete"
+import Modal from "../../ui/Modal"
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
@@ -12,6 +14,8 @@ import { useNavigate } from "react-router-dom";
  
 import  useDeleteBooking  from "./useDeleteBooking";
 import useCheckOut from "../check-in-out/useCheckOut";
+
+
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -64,9 +68,17 @@ const navigate = useNavigate()
   const { isDeleting, deleteBooking } = useDeleteBooking()
   const {isCheckingOut, checkout } = useCheckOut()
  
-function handleDeleteBooking(){
-  deleteBooking(bookingId)
-}
+  function handleDeleteBooking() {
+    deleteBooking(bookingId, {
+      onSuccess: () => {
+        console.log(`Booking ${bookingId} deleted successfully!`);
+      },
+      onError: (error) => {
+        console.error("Error deleting booking:", error);
+      },
+    });
+  }
+  
   return (
     <Table.Row>
       <Cabin>{cabinName || "No cabin info"}</Cabin>
@@ -92,6 +104,7 @@ function handleDeleteBooking(){
       <Tag type={statusToTagName[status] || "grey"}>{formattedStatus}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+        <Modal>
       <Menus.Menu>
       <Menus.Toggle id={bookingId} />
       <Menus.List id={bookingId}>
@@ -99,12 +112,18 @@ function handleDeleteBooking(){
         {status === "unconfirmed" && <Menus.Button icon={<HiArrowDownOnSquare />} onClick={() => navigate(`/checkin/${bookingId}`)}>Check in</Menus.Button>}
         {status === "checked-in" && <Menus.Button icon={<HiArrowUpOnSquare />} disabled={isCheckingOut} onClick={() => checkout({bookingId})} >Check out</Menus.Button>}
 
-        
-         <Menus.Button  icon={<HiTrash />} onClick={handleDeleteBooking}>Delete booking</Menus.Button>
-             
+        <Modal.Open opens='delete'>
+         <Menus.Button  icon={<HiTrash />}>Delete booking</Menus.Button>
+        </Modal.Open>    
       </Menus.List>
       
+      <Modal.Window name='delete'>
+ 
+     <ConfirmDelete resourceName="booking" onConfirm={handleDeleteBooking} disabled={isDeleting}/>
+ 
+   </Modal.Window>
       </Menus.Menu>
+      </Modal>
     </Table.Row>
   );
 }

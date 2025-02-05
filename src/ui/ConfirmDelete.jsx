@@ -22,7 +22,6 @@ const StyledConfirmDelete = styled.div`
   @media (max-width: 768px) {
     width: 30rem;
     gap: 1rem;
-  
 
     & p {
       margin-bottom: 1rem;
@@ -44,18 +43,18 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
+function ConfirmDelete({ resourceName = "item", onConfirm, disabled, onCloseModal }) {
+  const itemType = resourceName === "booking" ? "booking" : "cabin";
 
-function ConfirmDelete({ resourceName, onConfirm, disabled , onCloseModal}) {
   return (
     <StyledConfirmDelete>
-      <Heading as="h3">Delete {resourceName}</Heading>
+      <Heading as="h2">Delete {resourceName}</Heading>
       <p>
-        Are you sure you want to delete this cabin  {resourceName} permanently? This
-        action cannot be undone.
+        Are you sure you want to delete this {itemType} permanently? This action cannot be undone.
       </p>
 
       <div>
-        <Button variation="secondary" disabled={disabled} onClick={() => onCloseModal?.()}>
+        <Button variation="secondary" disabled={disabled} onClick={onCloseModal}>
           Cancel
         </Button>
         <Button variation="danger" disabled={disabled} onClick={onConfirm}>

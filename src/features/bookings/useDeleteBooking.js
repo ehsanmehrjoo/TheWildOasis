@@ -4,12 +4,14 @@ import { deleteBooking as deleteBookingApi } from "../../services/apiBookings";
 import { useNavigate } from "react-router-dom";
 
  function useDeleteBooking() {
+ 
   const queryClient = useQueryClient();
   const navigate = useNavigate(queryClient)
   const { isLoading: isDeleting, mutate: deleteBooking } = useMutation({
-    mutationFn: deleteBookingApi,
+    mutationFn:  deleteBookingApi,
+
     onSuccess: () => {
-      toast.success("Booking  successfully deleted");
+      toast.success(`Booking  successfully deleted`);
       navigate("/")
 
       queryClient.invalidateQueries({
