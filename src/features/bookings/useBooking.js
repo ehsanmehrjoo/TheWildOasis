@@ -11,6 +11,7 @@ function useBooking() {
         queryFn: () => getBooking(bookingId),
         retry : false,
       });
+
       const prefetchCabins  = () => {
         queryClient.prefetchQuery({
           queryKey: ["bookings", bookingId],

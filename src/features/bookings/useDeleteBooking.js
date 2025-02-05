@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
  
   const queryClient = useQueryClient();
   const navigate = useNavigate(queryClient)
-  const { isLoading: isDeleting, mutate: deleteBooking } = useMutation({
+  const { isLoading : isDeleting, mutate: deleteBooking } = useMutation({
     mutationFn:  deleteBookingApi,
 
     onSuccess: () => {

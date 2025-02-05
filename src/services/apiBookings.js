@@ -1,15 +1,16 @@
-import { BOOKINGS_SELECT, PAGE_SIZE } from "../utils/constants";
+import { BOOKINGS_SELECT,   } from "../utils/constants";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 
 
-export async function getBookings({filter , sortBy , page}) {
+export async function getBookings({filter , sortBy , page ,  PAGE_SIZE}) {
   let query = supabase
     .from("bookings")
     .select(
       BOOKINGS_SELECT , {count : 'exact'}
     ) 
+
     // FILTER
     if(filter) query = query[filter.method || 'eq'](filter.field , filter.value);
     // SORT BY

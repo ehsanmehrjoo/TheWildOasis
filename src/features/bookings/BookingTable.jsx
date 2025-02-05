@@ -7,10 +7,13 @@ import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
-  const { isLoading, bookings , count } = useBookings();
+  const { isLoading, bookings , count  , PAGE_SIZE} = useBookings();
+  console.log(bookings);
 
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || !PAGE_SIZE) return <Spinner />;
+
+
   if (!bookings || bookings.length === 0) return <Empty resourceName="bookings" />;
 
   return (
