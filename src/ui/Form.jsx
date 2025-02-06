@@ -1,7 +1,7 @@
+
 import styled, { css } from "styled-components";
 
 const Form = styled.form`
-width: 96rem;
   ${(props) =>
     props.type === "regular" &&
     css`
@@ -9,7 +9,7 @@ width: 96rem;
 
       /* Box */
       background-color: var(--color-grey-0);
-      /* border: 1px solid var(--color-grey-100); */
+      border: 1px solid var(--color-grey-100);
       border-radius: var(--border-radius-md);
     `}
 
@@ -22,7 +22,9 @@ width: 96rem;
   overflow: hidden;
   font-size: 1.4rem;
 `;
+
 Form.defaultProps = {
   type: "regular",
-}
+};
+
 export default Form;
