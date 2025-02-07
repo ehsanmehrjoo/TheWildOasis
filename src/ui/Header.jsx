@@ -6,6 +6,7 @@ import {
   HiOutlineArrowRightOnRectangle,
 } from "react-icons/hi2";
 import { NavLink } from "react-router-dom";
+import useLogout from "../features/authentication/useLogout";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -87,6 +88,10 @@ const Span = styled.span`
 `;
 
 function Header() {
+  const {Logout , isLoading} = useLogout()
+  function handleLogout(){
+    Logout()
+  }
   return (
     <StyledHeader>
       <Div>
@@ -106,7 +111,7 @@ function Header() {
           <HiOutlineMoon />
         </Li>
         <Li>
-          <NavLink to="login">
+          <NavLink  onClick={handleLogout}>
             <HiOutlineArrowRightOnRectangle />
           </NavLink>
         </Li>
