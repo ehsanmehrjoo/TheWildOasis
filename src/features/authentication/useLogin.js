@@ -13,8 +13,8 @@ function useLogin() {
 
 
     onSuccess: (user) => {
-        queryClient.setQueryData(['user', user])
-        navigate(`/dashboard`)
+        queryClient.setQueryData(['user'], user.user)
+        navigate(`/dashboard` , {replace: true})
         toast.success("Login Success")
     },
     onError: (err) => {

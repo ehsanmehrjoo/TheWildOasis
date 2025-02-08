@@ -7,6 +7,7 @@ import {
 } from "react-icons/hi2";
 import { NavLink } from "react-router-dom";
 import useLogout from "../features/authentication/useLogout";
+import SpinnerMini from "./SpinnerMini";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -112,7 +113,7 @@ function Header() {
         </Li>
         <Li>
           <NavLink  onClick={handleLogout}>
-            <HiOutlineArrowRightOnRectangle />
+            {!isLoading ? <HiOutlineArrowRightOnRectangle /> : <SpinnerMini />}
           </NavLink>
         </Li>
       </Ul>
