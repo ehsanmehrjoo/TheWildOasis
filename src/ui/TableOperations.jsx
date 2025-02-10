@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+
+export default TableOperations;
 const TableOperations = styled.div`
   display: flex;
   align-items: center;
@@ -7,8 +9,6 @@ const TableOperations = styled.div`
   flex-wrap: wrap; /* Allow items to wrap to the next line */
 
   @media (max-width: 768px) {
-    flex-wrap: nowrap; /* No wrapping for larger screens */
+    justify-content: center; /* وسط‌چین کردن در صفحه‌های کوچک */
   }
 `;
-
-export default TableOperations;

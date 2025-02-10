@@ -3,18 +3,18 @@ import styled from "styled-components";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
-
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
-  width: 118rem;
-     @media (max-width: 768px) {
+  width: 100%; /* تغییر عرض از مقدار ثابت به 100% */
+
+  @media (max-width: 768px) {
     overflow-x: auto; /* فعال کردن اسکرول افقی */
     font-size: 1.2rem;
-    width: 100%;
-   }
+  }
 `;
+
 
 const CommonRow = styled.div`
   display: grid;
@@ -79,12 +79,16 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 const contextTable = createContext(styled.context)
-function Table({columns ,children}){
-
-  return <contextTable.Provider  value={{columns}}>
-  <StyledTable role="table">{children}</StyledTable>
-  </contextTable.Provider>
+function Table({ columns, children }) {
+  return (
+    <contextTable.Provider value={{ columns }}>
+      <div style={{ overflowX: "auto", width: "97%" }}>
+        <StyledTable role="table">{children}</StyledTable>
+      </div>
+    </contextTable.Provider>
+  );
 }
+
 function Header({children}){
   const {columns} = useContext(contextTable)
   return <StyledHeader role="row" columns={columns} >{children}</StyledHeader>
