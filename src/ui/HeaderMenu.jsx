@@ -31,6 +31,11 @@ function HeaderMenu() {
             <HiOutlineUser />
         </ButtonIcon>
     </li>
+     <li>
+        <ButtonIcon onClick={() => navigate(`/account`)}>
+            <HiOutlineUser />
+        </ButtonIcon>
+    </li>
     <li>
     <ButtonIcon onClick={handleLogout}>
     {!isLoading ? <HiOutlineArrowRightOnRectangle /> : <SpinnerMini />}

@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
   padding: 1.2rem 4.8rem;
   border-bottom: 1px solid var(--color-grey-100);
-  margin-left: 124rem;
+  margin-left: 120rem;
 
   @media (max-width: 1200px) {
     margin-left: 50rem;
