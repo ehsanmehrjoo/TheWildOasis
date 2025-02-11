@@ -9,8 +9,8 @@ function useUpdateUser() {
     mutationFn : UpdateCurrentUser,
     onSuccess:({user}) => {
         toast.success('user account successfully Updated ')
-        queryClient.setQueryData('user' , user)
-        queryClient.invalidateQueries({queryKey : ['user']})
+        queryClient.setQueryData(['user'] , user)
+        // queryClient.invalidateQueries({queryKey : ['user']})
     },
 
 
