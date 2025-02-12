@@ -1,5 +1,5 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {  Navigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Bookings from './pages/Bookings';
@@ -12,7 +12,7 @@ import PageNotFound from './pages/PageNotFound';
 import GlobalStyle from './styles/GlobalStyle';
 import AppLayuot from './ui/AppLayuot';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import toast, { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 import Booking from './pages/Booking';
 import Checkin from './pages/Checkin';
 import ProtectedRoute from './ui/ProtectedRoute';

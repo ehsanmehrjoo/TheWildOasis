@@ -4,9 +4,11 @@ import App from './App.jsx';
 import { CabinProvider } from './features/cabins/ContextCabin.jsx';
 import Modal from './ui/Modal.jsx';
 import Menus from './ui/Menus.jsx';
+import { DarkModeProvider } from './context/DarkModeContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+  <DarkModeProvider>
     <Modal>
       <Menus>
         <CabinProvider>
@@ -14,5 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </CabinProvider>
       </Menus>
     </Modal>
+    </DarkModeProvider>
   </React.StrictMode>,
 );
