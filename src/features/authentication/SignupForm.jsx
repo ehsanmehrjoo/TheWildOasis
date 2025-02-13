@@ -14,7 +14,14 @@ function SignupForm() {
  const { Signup  , isLoading} = useSignup()
  function onSubmit(data){
   console.log(data);
-  Signup({fullName : data?.fullName , email :  data?.email ,password : data?.password } , {
+  Signup(
+    {
+      fullName: data?.fullName,
+      email: data?.email,
+      password: data?.password,
+      role: "employee", // Role for employees
+    }
+    , {
     onSettled : () => {
 
       reset()
