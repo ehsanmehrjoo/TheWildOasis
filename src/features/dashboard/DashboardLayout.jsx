@@ -11,26 +11,41 @@ const StyledDashboardLayout = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto 34rem auto;
   gap: 2.4rem;
+
+  /* ریسپانسیو برای تبلت و گوشی */
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* فقط یک ستون */
+    grid-template-rows: auto auto auto auto;
+    gap: 1.6rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1.2rem; /* فاصله کمتر برای گوشی‌های خیلی کوچک */
+  }
 `;
 
-
 function DashboardLayout() {
-  const { isLoading ,  bookings} = useRecentBookings()
-  const { isLoadingStays, stays, confirmedStays , numDays} = useRecentStays() ;
-  const {isLoading : isLoadingCabin, cabins } = useCabins() ;
+  const { isLoading, bookings } = useRecentBookings();
+  const { isLoadingStays, stays, confirmedStays, numDays } = useRecentStays();
+  const { isLoading: isLoadingCabin, cabins } = useCabins();
   const cabinCount = cabins?.length || 0;
 
-  if(isLoading || isLoadingStays || isLoadingCabin) return <Spinner/>;
+  if (isLoading || isLoadingStays || isLoadingCabin) return <Spinner />;
   console.log(cabins);
+
   return (
     <StyledDashboardLayout>
-    <Stats confirmedStays={confirmedStays}  bookings={bookings} numDays={numDays} cabinCount={cabinCount}/>
-    <div>Today's activity</div>
-    <div>Cart stay duration</div>
-     <SalesChart />
-
+      <Stats
+        confirmedStays={confirmedStays}
+        bookings={bookings}
+        numDays={numDays}
+        cabinCount={cabinCount}
+      />
+      <div>Today's activity</div>
+      <div>Cart stay duration</div>
+      <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
-  )
+  );
 }
 
-export default DashboardLayout
+export default DashboardLayout;
