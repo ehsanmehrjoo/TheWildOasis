@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import supabase, { supabaseUrl } from "./supabase";
 
 
@@ -30,21 +31,55 @@ const { data, error } = await supabase.auth.signInWithPassword({
   if (error) {
     throw new Error(error.message)
   }
+  const { user } = data;
 
-  return {data}
+  return {
+    user,
+    session: data.session,
+  };
 }
 
-export async function getCurrentUser(){
-  const {data : session} =  await supabase.auth.getSession()
-  if(!session.session) return null
-  const {data , error} = await supabase.auth.getUser()
-  console.log(data);
-  if (error) {
-    throw new Error(error.message)
+// export async function getCurrentUser(){
+//   const {data : session} =  await supabase.auth.getSession()
+//   if(!session.session) return null
+//   const {data , error} = await supabase.auth.getUser()
+//   console.log(data);
+//   if (error) {
+//     throw new Error(error.message)
+//   }
+
+//   return data?.user
+// }
+ 
+
+export async function getCurrentUser() {
+  // دریافت session کاربر فعلی
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+
+  // بررسی خطا یا نبود session
+  if (sessionError || !sessionData.session) {
+    return null; // کاربر وارد نشده
   }
 
-  return data?.user
+  // استخراج اطلاعات کاربر از session
+  const user = sessionData.session.user;
+
+  // چک کردن نقش کاربر
+  if (user?.user_metadata?.role !== "employee") {
+    toast.error("Access denied: Only employees are allowed to log in.");
+    return null; // دسترسی رد شد
+  }
+
+  // گرفتن اطلاعات دقیق کاربر
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  if (userError) {
+    throw new Error(userError.message);
+  }
+
+  return userData?.user; // بازگرداندن کاربر
 }
+
 export async function Logout(){
   
 const { error } = await supabase.auth.signOut()

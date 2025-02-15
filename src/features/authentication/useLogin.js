@@ -1,32 +1,36 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Login as apiLogin } from "../../services/apiAuth"
-import { useNavigate } from "react-router-dom"
-import toast from "react-hot-toast"
-
- 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Login as apiLogin } from "../../services/apiAuth";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function useLogin() {
-    const navigate = useNavigate()
-    const queryClient = useQueryClient();
-   const {mutate : Login , isLoading : isLoadingLogin} = useMutation({
-    mutationFn :  ({email , password}) => apiLogin({email, password}),
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
+  const { mutate: login, isLoading: isLoadingLogin } = useMutation({
+    mutationFn: ({ email, password }) => apiLogin({ email, password }),
 
-    onSuccess: (user) => {
-        queryClient.setQueryData(['user'], user.user)
-        navigate(`/dashboard` , {replace: true})
-        toast.success("Login Success")
+    onSuccess: (response) => {
+      const user = response?.user;
+      const role = user?.user_metadata?.role;
+
+      if (role === "employee") {
+        queryClient.setQueryData(["user"], user);
+        navigate(`/dashboard`, { replace: true });
+        toast.success("Login Successful");
+      } else {
+        toast.error("Access denied: Only employees are allowed to log in.");
+      }
     },
 
     onError: (err) => {
-        console.log("ERROR : ", err);
-        toast.error('Provided email or password are incorrect')
-    }
-    ,
-  
-   })
+      console.error("Login Error:", err);
+      const errorMessage = err?.message || "Provided email or password are incorrect.";
+      toast.error(errorMessage);
+    },
+  });
 
-   return { Login , isLoadingLogin , }
+  return { login, isLoadingLogin };
 }
 
-export default useLogin
+export default useLogin;
