@@ -25,10 +25,10 @@ function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
   const [addBreakfast, setAddBreakfast] = useState(false);
   const { isLoading, booking } = useBooking();
-  const { settings, isLoading: isLoadingSettings, error } = useSettings();
+  const { settings, isLoading: isLoadingSettings } = useSettings();
   const moveBack = useMoveBack();
 
-  console.log(settings);
+
 
   useEffect(() => {
     if (booking) {
@@ -69,12 +69,12 @@ function CheckinBooking() {
      }
   }
 
-  return (
-    <Box>
+  return (<>
       <Row type="horizontal">
         <Heading as="h1">Check in booking #{bookingId}</Heading>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
+    <Box>
 
       <BookingDataBox booking={booking} />
 
@@ -126,6 +126,7 @@ function CheckinBooking() {
         </Button>
       </ButtonGroup>
     </Box>
+    </>
   );
 }
 

@@ -53,6 +53,7 @@ const Icon = styled.div`
   /* ریسپانسیو */
   @media (max-width: 768px) {
     margin: 0 auto; /* آیکون در مرکز */
+    padding: 1.5rem;
   }
 `;
 

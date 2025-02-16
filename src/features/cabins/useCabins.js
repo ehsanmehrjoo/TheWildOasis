@@ -4,18 +4,18 @@ import { getCabins } from "../../services/apiCabins";
  
 
 function useCabins() {
-  const queryClient = useQueryClient()
+  // const queryClient = useQueryClient()
     const { isLoading, data: cabins ,error  } = useQuery({
         queryKey: ["cabins"],
         queryFn: getCabins,
       });
-      const prefetchCabins  = () => {
-        queryClient.prefetchQuery({
-          queryKey: ["cabins"],
-          queryFn: getCabins,
-        })
-      }
-      return { isLoading , cabins ,error , prefetchCabins}
+      // const prefetchCabins  = () => {
+      //   queryClient.prefetchQuery({
+      //     queryKey: ["cabins"],
+      //     queryFn: getCabins,
+      //   })
+      // }
+      return { isLoading , cabins ,error }
 }
 
 export default useCabins

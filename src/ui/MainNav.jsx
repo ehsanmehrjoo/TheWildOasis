@@ -53,7 +53,6 @@ const StyledLink = styled(NavLink)`
  
 
 function MainNav() {
-  const {prefetchCabins} = useCabins()
   return (
     <nav>
       <NavList>
@@ -70,7 +69,7 @@ function MainNav() {
         </StyledLink>
         </li>
         <li>
-        <StyledLink to="/cabins" onMouseEnter={prefetchCabins}>
+        <StyledLink to="/cabins">
         <HiOutlineHomeModern />
         <span>Cabins</span>
         </StyledLink>

@@ -39,7 +39,6 @@ function DashboardLayout() {
   const cabinCount = cabins?.length || 0;
 
   if (isLoading || isLoadingStays || isLoadingCabin) return <Spinner />;
-  console.log(cabins);
 
   return (
     <StyledDashboardLayout>

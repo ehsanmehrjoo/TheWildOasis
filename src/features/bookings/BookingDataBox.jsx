@@ -21,7 +21,7 @@ const StyledBookingDataBox = styled.section`
   overflow: hidden;
   @media (max-width: 768px) {
     overflow: auto;
-    padding: 1.2rem
+    /* padding: 1.2rem */
   }
   
 `;
@@ -99,7 +99,7 @@ const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
   @media (max-width: 768px) {
     overflow: auto;
-    padding: 3.2rem 4rem 2.2rem;
+    padding: 2rem;
   }
 `;
 

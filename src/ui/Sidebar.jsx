@@ -97,7 +97,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "./Logo";
 import MainNav from "./MainNav";
-import { HiMenuAlt3 } from "react-icons/hi";
+import { motion } from "framer-motion";
+import { HiMenuAlt3, HiX } from "react-icons/hi"; // آیکون ضربدر
 import Uploader from "../data/Uploader";
 
 const StyledSidebar = styled.aside`
@@ -107,7 +108,6 @@ const StyledSidebar = styled.aside`
   grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
-  /*  5.46rem*/
   gap: 53.3px;
   transition: transform 0.3s ease-in-out;
 
@@ -122,7 +122,7 @@ const StyledSidebar = styled.aside`
   }
 `;
 
-const MenuButton = styled.button`
+const MenuButton = styled(motion.button)`
   background: none;
   border: none;
   color: var(--color-grey-600);
@@ -137,6 +137,17 @@ const MenuButton = styled.button`
     left: 2rem;
     z-index: 1100;
   }
+`;
+
+const Overlay = styled.div`
+  display: ${(props) => (props.isOpen ? "block" : "none")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 900;
 `;
 
 const BlueLine = styled.div`
@@ -155,8 +166,10 @@ const BlueLine = styled.div`
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleSidebar = () => setIsOpen((prev) => !prev);
+
   const handleClickOutside = (e) => {
-    if (e.target.closest('.sidebar') === null && isOpen) {
+    if (!e.target.closest(".sidebar") && !e.target.closest(".menu-button") && isOpen) {
       setIsOpen(false);
     }
   };
@@ -171,8 +184,31 @@ function Sidebar() {
   return (
     <>
       <BlueLine />
-      <MenuButton onClick={() => setIsOpen(!isOpen)}>
-        <HiMenuAlt3 />
+      <Overlay isOpen={isOpen} onClick={toggleSidebar} />
+      <MenuButton
+        className="menu-button"
+        onClick={toggleSidebar}
+        whileTap={{ scale: 0.9 }} // انیمیشن کوچک‌شدن هنگام کلیک
+      >
+        {isOpen ? (
+          <motion.div
+            key="close" // آیکون ضربدر
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 90 }} // انیمیشن چرخش
+            transition={{ duration: 0.3 }}
+          >
+            <HiX />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="menu" // آیکون منو
+            initial={{ rotate: -90 }}
+            animate={{ rotate: 0 }} // انیمیشن چرخش
+            transition={{ duration: 0.3 }}
+          >
+            <HiMenuAlt3 />
+          </motion.div>
+        )}
       </MenuButton>
       <StyledSidebar className="sidebar" isOpen={isOpen}>
         <Logo />
