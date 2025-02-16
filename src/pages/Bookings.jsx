@@ -8,7 +8,7 @@ function Bookings() {
  
   return (<>
     <Row type="horizontal">
-      <Heading as="h1">All bookings</Heading>
+      <Heading as="h2">All bookings</Heading>
       <BookingTableOperations />
     </Row>
 

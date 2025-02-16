@@ -5,24 +5,32 @@ import useRecentStays from "./useRecentStays";
 import Stats from "./Stats";
 import useCabins from "../cabins/useCabins";
 import SalesChart from "./SalesChart";
+import DurationChart from "./DurationChart";
+import TodayActivity from "../check-in-out/TodayActivity";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr); /* 4 ستون در سایزهای بزرگ */
   grid-template-rows: auto 34rem auto;
   gap: 2.4rem;
 
-  /* ریسپانسیو برای تبلت و گوشی */
+  /* ریسپانسیو برای سایزهای مختلف */
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr); /* 2 ستون برای تبلت */
+  }
+
   @media (max-width: 768px) {
-    grid-template-columns: 1fr; /* فقط یک ستون */
-    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 1fr; /* 1 ستون برای موبایل */
+    grid-template-rows: auto; /* ارتفاع خودکار */
     gap: 1.6rem;
   }
 
   @media (max-width: 480px) {
-    gap: 1.2rem; /* فاصله کمتر برای گوشی‌های خیلی کوچک */
+    gap: 1.2rem; /* کاهش فاصله بین عناصر برای گوشی‌های کوچک */
+    padding: 1rem; /* افزودن padding داخلی برای بهتر نمایش دادن */
   }
 `;
+
 
 function DashboardLayout() {
   const { isLoading, bookings } = useRecentBookings();
@@ -41,8 +49,8 @@ function DashboardLayout() {
         numDays={numDays}
         cabinCount={cabinCount}
       />
-      <div>Today's activity</div>
-      <div>Cart stay duration</div>
+      <TodayActivity />
+      <DurationChart confirmedStays={confirmedStays}/>
       <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
   );

@@ -12,11 +12,16 @@ const LoginLayout = styled.main`
   justify-content: center;
   gap: 3.2rem;
   background-color: var(--color-grey-50);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 90%; /* برای موبایل عرض را کمتر کنید */
+    padding: 1rem; /* فاصله داخلی برای جلوگیری از چسبیدن محتوا به لبه */
+  }
 `;
+
 
 function Login() {
   return <LoginLayout> 
-  {/* <SignupForm /> */}
   <Logo />
  
   <Heading as="h4" >Log in to your account</Heading>

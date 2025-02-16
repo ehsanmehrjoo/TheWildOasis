@@ -82,7 +82,7 @@ const contextTable = createContext(styled.context)
 function Table({ columns, children }) {
   return (
     <contextTable.Provider value={{ columns }}>
-      <div style={{ overflowX: "auto", width: "97%" }}>
+      <div style={{ overflowX: "auto", width: "100%" }}>
         <StyledTable role="table">{children}</StyledTable>
       </div>
     </contextTable.Provider>

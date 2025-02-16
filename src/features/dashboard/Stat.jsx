@@ -12,6 +12,25 @@ const StyledStat = styled.div`
   grid-template-rows: auto auto;
   column-gap: 1.6rem;
   row-gap: 0.4rem;
+
+  /* پیش‌فرض عرض */
+  width: 100%;
+  max-width: 400px; /* حداکثر عرض */
+
+  /* ریسپانسیو */
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* یک ستون در نمایش تبلت */
+    grid-template-rows: auto;
+    text-align: center;
+    padding: 1.2rem;
+    width: 90%; /* عرض کمتر برای تبلت */
+    max-width: 350px; /* تنظیم حداکثر عرض */
+  }
+
+  @media (max-width: 480px) {
+    width: 100%; /* عرض کامل در گوشی‌های کوچک */
+    max-width: 380px; /* محدود کردن عرض برای گوشی */
+  }
 `;
 
 const Icon = styled.div`
@@ -30,6 +49,11 @@ const Icon = styled.div`
     height: 3.2rem;
     color: var(--color-${(props) => props.color}-700);
   }
+
+  /* ریسپانسیو */
+  @media (max-width: 768px) {
+    margin: 0 auto; /* آیکون در مرکز */
+  }
 `;
 
 const Title = styled.h5`
@@ -39,12 +63,23 @@ const Title = styled.h5`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-500);
+
+  /* ریسپانسیو */
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-top: 0.8rem; /* فاصله بین آیکون و متن */
+  }
 `;
 
 const Value = styled.p`
   font-size: 2.4rem;
   line-height: 1;
   font-weight: 500;
+
+  /* ریسپانسیو */
+  @media (max-width: 768px) {
+    font-size: 2rem; /* کاهش اندازه فونت برای موبایل */
+  }
 `;
 
 function Stat({ icon, title, value, color }) {

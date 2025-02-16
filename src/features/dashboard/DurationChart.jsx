@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import Heading from "../../ui/Heading";
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { da } from "date-fns/locale";
+import { useDarkMode } from "../../context/DarkModeContext";
+import { useState } from "react";
 
 const ChartBox = styled.div`
   /* Box */
@@ -16,7 +21,21 @@ const ChartBox = styled.div`
   & .recharts-pie-label-text {
     font-weight: 600;
   }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.6rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
 `;
+
 
 const startDataLight = [
   {
@@ -130,3 +149,52 @@ function prepareData(startData, stays) {
 
   return data;
 }
+ 
+
+
+function DurationChart({ confirmedStays }) {
+  const { isDarkMode } = useDarkMode();
+  const startData = isDarkMode ? startDataDark : startDataLight;
+  const data = prepareData(startData, confirmedStays);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  // Adjust chart size based on screen width
+  const innerRadius = window.innerWidth < 480 ? 60 : 85;
+  const outerRadius = window.innerWidth < 480 ? 90 : 120;
+  const legendAlign = screenWidth < 768 ? "left" : "right";
+
+  return (
+    <ChartBox>
+      <Heading as="h2">Stay duration summary</Heading>
+      <ResponsiveContainer width="100%" height={240}>
+        <PieChart>
+          <Pie
+            data={data}
+            nameKey="duration"
+            dataKey="value"
+            innerRadius={innerRadius}
+            outerRadius={outerRadius}
+            cx="50%"
+            cy="50%"
+            paddingAngle={3}
+          >
+            {data.map((entry) => (
+              <Cell fill={entry.color} stroke={entry.color} key={entry.duration} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend
+            verticalAlign={window.innerWidth < 768 ? "bottom" : "middle"}
+            align={legendAlign}
+            width={window.innerWidth < 768 ? "100%" : "30%"}
+            layout={window.innerWidth < 768 ? "horizontal" : "vertical"}
+            iconSize={15}
+            iconType="circle"
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartBox>
+  );
+}
+
+export default DurationChart;

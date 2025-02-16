@@ -16,7 +16,7 @@ const StyledSalesChart = styled(DashboardBox)`
 
 
   @media (max-width: 768px) {
-    height: 250px; 
+    height: 400px; 
   }
 `;
 
