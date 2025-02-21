@@ -108,7 +108,7 @@ const StyledSidebar = styled.aside`
   grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
-  gap: 53.3px;
+  gap: 56.6px;
   transition: transform 0.3s ease-in-out;
 
   @media (max-width: 768px) {
