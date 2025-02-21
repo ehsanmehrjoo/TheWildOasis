@@ -33,8 +33,8 @@ function Logo() {
   const [hasError, setHasError] = useState(false);
 
   const src = isDarkMode
-    ? "/src/data/img/logo-dark.png"  // مسیر باید در `public/` باشد
-    : "/src/data/img/logo-light.png";
+    ? "https://iljrwbhnejndlaaifxnp.supabase.co/storage/v1/object/public/avatar//avatar-15b00917-8029-423d-89eb-569080203ac5-0.8784458740977714"  // مسیر باید در `public/` باشد
+    : "https://iljrwbhnejndlaaifxnp.supabase.co/storage/v1/object/public/avatar//avatar-15b00917-8029-423d-89eb-569080203ac5-0.25998386882750824";
 
   return (
     <StyledLogo>
