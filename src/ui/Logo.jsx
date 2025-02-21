@@ -33,8 +33,8 @@ function Logo() {
   const [hasError, setHasError] = useState(false);
 
   const src = isDarkMode
-    ? "/data/img/logo-dark.png"  // مسیر باید در `public/` باشد
-    : "/data/img/logo-light.png";
+    ? "/src/data/img/logo-dark.png"  // مسیر باید در `public/` باشد
+    : "/src/data/img/logo-light.png";
 
   return (
     <StyledLogo>
