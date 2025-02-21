@@ -211,7 +211,7 @@ function Sidebar() {
         )}
       </MenuButton>
       <StyledSidebar className="sidebar" isOpen={isOpen}>
-        {/* <Logo /> */}
+        <Logo />
         <MainNav />
         <Uploader />
       </StyledSidebar>
